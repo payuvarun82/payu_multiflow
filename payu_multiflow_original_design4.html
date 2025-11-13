@@ -2110,7 +2110,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="upi_payment_start_date">Payment Start Date <span class="required">*</span></label>
-                            <input type="date" id="upi_payment_start_date" name="payment_start_date" onchange="validateUpiOtmDates()" required>
+                            <input type="date" id="upi_payment_start_date" name="payment_start_date" onchange="validateUpiOtmStartDate(); validateUpiOtmDates()" required>
+                            <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Select current or future date only</small>
                         </div>
                         <div class="form-group">
                             <label for="upi_payment_end_date">Payment End Date <span class="required">*</span></label>
@@ -3455,6 +3456,7 @@
             
             if (upiPaymentStartDate) {
                 upiPaymentStartDate.value = today;
+                upiPaymentStartDate.min = today; // Prevent past date selection
                 console.log('✓ UPI OTM payment_start_date set to:', upiPaymentStartDate.value);
             } else {
                 console.error('✗ UPI OTM payment_start_date field NOT FOUND');
@@ -4727,6 +4729,28 @@
             return true;
         }
         
+        // Validate UPI OTM Start Date (prevent past dates)
+        function validateUpiOtmStartDate() {
+            const startDateInput = document.getElementById('upi_payment_start_date');
+            
+            if (!startDateInput || !startDateInput.value) return true;
+            
+            const selectedDate = new Date(startDateInput.value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Reset time to compare only dates
+            
+            if (selectedDate < today) {
+                alert('Payment Start Date cannot be in the past. Please select current date or a future date.');
+                // Reset to today's date
+                const todayStr = new Date().toISOString().split('T')[0];
+                startDateInput.value = todayStr;
+                startDateInput.min = todayStr;
+                return false;
+            }
+            
+            return true;
+        }
+        
         // Custom Keys Functions
         function toggleCustomKeys(flow) {
             const prefix = flow === 'crossborder' ? 'cb' : (flow === 'subscription' ? 'sub' : (flow === 'tpv' ? 'tpv' : (flow === 'upiotm' ? 'upi' : (flow === 'preauth' ? 'preauth' : (flow === 'checkoutplus' ? 'cp' : (flow === 'split' ? 'split' : (flow === 'bankoffer' ? 'bo' : 'ns')))))));
@@ -5158,6 +5182,11 @@
             } else if (flow === 'upiotm') {
                 // UPI OTM specific validation
                 requiredFields.push('payment_start_date', 'payment_end_date');
+                
+                // Validate payment start date (no past dates)
+                if (!validateUpiOtmStartDate()) {
+                    return false;
+                }
                 
                 // Validate date range (14-day limit)
                 if (!validateUpiOtmDates()) {
