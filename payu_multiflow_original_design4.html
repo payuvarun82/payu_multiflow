@@ -4244,7 +4244,7 @@
             
             const smallNote = document.createElement('small');
             smallNote.style.cssText = 'color: #64748b; display: block; margin-top: 0.5rem; font-size: 0.875rem; line-height: 1.5;';
-            smallNote.innerHTML = '<strong>Important:</strong> If you add an offer_key in ANY SKU, all SKUs must have the offer_key field.';
+            smallNote.innerHTML = '<strong>Note:</strong> Leave blank for auto-apply. If specified, offer_auto_apply will be set to false for this SKU.';
             
             thirdRow.appendChild(labelOfferKey);
             thirdRow.appendChild(inputOfferKey);
@@ -4330,16 +4330,7 @@
             let totalItems = 0;
             let calculatedAmount = 0;
             
-            // First pass: check if ANY SKU has an offer_key
-            let hasAnyOfferKey = false;
-            skuRows.forEach(row => {
-                const offerKeyInput = row.querySelector('.bo-sku-offer-key').value.trim();
-                if (offerKeyInput) {
-                    hasAnyOfferKey = true;
-                }
-            });
-            
-            // Second pass: build SKU details with consistent offer_key handling
+            // Build SKU details - each SKU independently handles offer_key and offer_auto_apply
             skuRows.forEach(row => {
                 const skuId = row.querySelector('.bo-sku-id').value.trim();
                 const skuName = row.querySelector('.bo-sku-name').value.trim();
@@ -4347,7 +4338,7 @@
                 const quantity = parseInt(row.querySelector('.bo-sku-quantity').value) || 1;
                 const offerKeyInput = row.querySelector('.bo-sku-offer-key').value.trim();
                 
-                // Parse offer_key and set offer_auto_apply based on it
+                // Parse offer_key and set offer_auto_apply based on whether offer_key is provided
                 let offerKey = null;
                 let offerAutoApply = true;
                 
@@ -4359,12 +4350,8 @@
                         offerKey = [offerKeyInput];
                     }
                     offerAutoApply = false;
-                } else if (hasAnyOfferKey) {
-                    // If ANY SKU has offer_key, ALL must have it (set to null for empty ones)
-                    offerKey = null;
-                    offerAutoApply = true;
                 } else {
-                    // No SKUs have offer_key, so we can omit it entirely (handled below)
+                    // If no offer_key provided, set to null with auto_apply true
                     offerKey = null;
                     offerAutoApply = true;
                 }
@@ -4374,14 +4361,10 @@
                         "sku_id": skuId,
                         "sku_name": skuName,
                         "amount_per_sku": amountPerSku,
-                        "quantity": quantity
+                        "quantity": quantity,
+                        "offer_key": offerKey,
+                        "offer_auto_apply": offerAutoApply
                     };
-                    
-                    // Only add offer_key fields if at least one SKU has an offer_key
-                    if (hasAnyOfferKey) {
-                        skuItem.offer_key = offerKey;
-                        skuItem.offer_auto_apply = offerAutoApply;
-                    }
                     
                     skuDetails.push(skuItem);
                     
