@@ -1172,6 +1172,29 @@
             color: #e83e8c;
             border: 1px solid #ffc107;
         }
+        
+        /* Character Counter Styles */
+        .char-counter {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin-top: 0.25rem;
+            text-align: right;
+            font-weight: 500;
+        }
+        
+        .char-counter.warning {
+            color: var(--warning-color);
+        }
+        
+        .char-counter.error {
+            color: var(--error-color);
+            font-weight: 600;
+        }
+        
+        .form-group input[maxlength]:focus + .char-counter,
+        .form-group textarea[maxlength]:focus + .char-counter {
+            color: var(--accent-primary);
+        }
     </style>
 </head>
 <body>
@@ -1277,6 +1300,18 @@
                         <h3>Subscription Configuration</h3>
                         <div class="form-row">
                             <div class="form-group">
+                                <label for="cb_billing_amount">Billing Amount <span class="required">*</span></label>
+                                <input type="number" id="cb_billing_amount" name="billing_amount" placeholder="Enter billing amount" min="1" step="0.01" required>
+                                <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Amount to be charged per billing cycle</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="cb_billing_currency">Billing Currency <span class="required">*</span></label>
+                                <input type="text" id="cb_billing_currency" name="billing_currency" value="INR" readonly style="background-color: #f0f0f0; cursor: not-allowed;">
+                                <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Currency is fixed to INR</small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
                                 <label for="cb_billing_cycle">Billing Cycle <span class="required">*</span></label>
                                 <select id="cb_billing_cycle" name="billing_cycle">
                                     <option value="MONTHLY">Monthly</option>
@@ -1351,7 +1386,8 @@
                     <!-- Transaction ID Display (Auto-Generated) -->
                     <div class="form-group">
                         <label for="cb_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end)</span></label>
-                        <input type="text" id="cb_txnid_display" readonly style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                        <input type="text" id="cb_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                        <span class="char-counter" id="cb_txnid_display_counter">0/25</span>
                         <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Unique identifier auto-generated for this transaction - Non-editable</small>
                     </div>
                     
@@ -1362,7 +1398,8 @@
                         </div>
                         <div class="form-group">
                             <label for="cb_productinfo">Product Info <span class="required">*</span></label>
-                            <input type="text" id="cb_productinfo" name="productinfo" placeholder="Product or service description" required>
+                            <input type="text" id="cb_productinfo" name="productinfo" placeholder="Product or service description" required maxlength="100">
+                            <div id="cb_productinfo_counter" class="char-counter">0/100</div>
                         </div>
                     </div>
                     
@@ -1371,18 +1408,21 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="cb_firstname">First Name <span class="required">*</span></label>
-                            <input type="text" id="cb_firstname" name="firstname" placeholder="John" required>
+                            <input type="text" id="cb_firstname" name="firstname" placeholder="John" required maxlength="60">
+                            <div id="cb_firstname_counter" class="char-counter">0/60</div>
                         </div>
                         <div class="form-group">
                             <label for="cb_lastname">Last Name <span class="required">*</span></label>
-                            <input type="text" id="cb_lastname" name="lastname" placeholder="Doe" required>
+                            <input type="text" id="cb_lastname" name="lastname" placeholder="Doe" required maxlength="20">
+                            <div id="cb_lastname_counter" class="char-counter">0/20</div>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="cb_email">Email <span class="required">*</span></label>
-                            <input type="email" id="cb_email" name="email" placeholder="john.doe@example.com" required>
+                            <input type="email" id="cb_email" name="email" placeholder="john.doe@example.com" required maxlength="50">
+                            <div id="cb_email_counter" class="char-counter">0/50</div>
                             <div id="cb-email-error" class="error-message" style="display: none;"></div>
                         </div>
                         <div class="form-group">
@@ -1399,33 +1439,39 @@
                     
                     <div class="form-group">
                         <label for="cb_address1">Address Line 1 <span class="required">*</span></label>
-                        <input type="text" id="cb_address1" name="address1" placeholder="Street address" required>
+                        <input type="text" id="cb_address1" name="address1" placeholder="Street address" required maxlength="100">
+                        <div id="cb_address1_counter" class="char-counter">0/100</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="cb_address2">Address Line 2 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="cb_address2" name="address2" placeholder="Apartment, suite, etc.">
+                        <input type="text" id="cb_address2" name="address2" placeholder="Apartment, suite, etc." maxlength="100">
+                        <div id="cb_address2_counter" class="char-counter">0/100</div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="cb_city">City <span class="required">*</span></label>
-                            <input type="text" id="cb_city" name="city" placeholder="Mumbai" required>
+                            <input type="text" id="cb_city" name="city" placeholder="Mumbai" required maxlength="50">
+                            <div id="cb_city_counter" class="char-counter">0/50</div>
                         </div>
                         <div class="form-group">
                             <label for="cb_state">State <span class="required">*</span></label>
-                            <input type="text" id="cb_state" name="state" placeholder="Maharashtra" required>
+                            <input type="text" id="cb_state" name="state" placeholder="Maharashtra" required maxlength="50">
+                            <div id="cb_state_counter" class="char-counter">0/50</div>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="cb_country">Country <span class="required">*</span></label>
-                            <input type="text" id="cb_country" name="country" placeholder="India" required>
+                            <input type="text" id="cb_country" name="country" placeholder="India" required maxlength="50">
+                            <div id="cb_country_counter" class="char-counter">0/50</div>
                         </div>
                         <div class="form-group">
                             <label for="cb_zipcode">ZIP Code <span class="required">*</span></label>
-                            <input type="text" id="cb_zipcode" name="zipcode" placeholder="400001" required>
+                            <input type="text" id="cb_zipcode" name="zipcode" placeholder="400001" required maxlength="20">
+                            <div id="cb_zipcode_counter" class="char-counter">0/20</div>
                         </div>
                     </div>
                     
@@ -1492,30 +1538,35 @@
                     
                     <div class="form-group">
                         <label for="cb_sub_udf1_input">UDF1 - PAN & DOB <span class="optional">(Required if AD bank requests)</span></label>
-                        <input type="text" id="cb_sub_udf1_input" name="sub_udf1_input" placeholder="AAAPZ1234C||22/08/1972">
+                        <input type="text" id="cb_sub_udf1_input" name="sub_udf1_input" placeholder="AAAPZ1234C||22/08/1972" maxlength="255">
+                        <div id="cb_sub_udf1_input_counter" class="char-counter">0/255</div>
                         <small style="color: var(--text-tertiary);">Format: PAN||DOB (DD/MM/YYYY)</small>
                     </div>
                     
                     <div class="form-group">
                         <label for="cb_sub_udf2_input">UDF2 - Additional Info <span class="optional">(Optional)</span></label>
-                        <input type="text" id="cb_sub_udf2_input" name="sub_udf2_input" placeholder="Any additional information">
+                        <input type="text" id="cb_sub_udf2_input" name="sub_udf2_input" placeholder="Any additional information" maxlength="255">
+                        <div id="cb_sub_udf2_input_counter" class="char-counter">0/255</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="cb_sub_udf3_input">UDF3 - Invoice ID & Merchant Name <span class="optional">(Required if UPI enforced)</span></label>
-                        <input type="text" id="cb_sub_udf3_input" name="sub_udf3_input" placeholder="INV-123_1231||MerchantName">
+                        <input type="text" id="cb_sub_udf3_input" name="sub_udf3_input" placeholder="INV-123_1231||MerchantName" maxlength="255">
+                        <div id="cb_sub_udf3_input_counter" class="char-counter">0/255</div>
                         <small style="color: var(--text-tertiary);">Format: InvoiceID||MerchantName (Mandatory when UPI is enforced)</small>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="cb_sub_udf4_input">UDF4 - Additional Field <span class="optional">(Optional)</span></label>
-                            <input type="text" id="cb_sub_udf4_input" name="sub_udf4_input" placeholder="Additional field">
+                            <input type="text" id="cb_sub_udf4_input" name="sub_udf4_input" placeholder="Additional field" maxlength="255">
+                            <div id="cb_sub_udf4_input_counter" class="char-counter">0/255</div>
                         </div>
                         <div class="form-group">
                             <label for="cb_sub_udf5_input">UDF5 - Additional Field <span class="optional">(Required if non-UPI payment enforced)</span></label>
-                            <input type="text" id="cb_sub_udf5_input" name="sub_udf5_input" placeholder="Additional field">
-                        </div>
+                            <input type="text" id="cb_sub_udf5_input" name="sub_udf5_input" placeholder="Additional field" maxlength="255">
+                            <div id="cb_sub_udf5_input_counter" class="char-counter">0/255</div>
+        </div>
                     </div>
                 </div>
                 
@@ -1526,11 +1577,13 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="cb_surl">Success URL <span class="required">*</span></label>
-                            <input type="url" id="cb_surl" name="surl" value="https://test.payu.in/admin/test_response" required>
+                            <input type="url" id="cb_surl" name="surl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                            <div id="cb_surl_counter" class="char-counter">0/255</div>
                         </div>
                         <div class="form-group">
                             <label for="cb_furl">Failure URL <span class="required">*</span></label>
-                            <input type="url" id="cb_furl" name="furl" value="https://test.payu.in/admin/test_response" required>
+                            <input type="url" id="cb_furl" name="furl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                            <div id="cb_furl_counter" class="char-counter">0/255</div>
                         </div>
                     </div>
                 </div>
@@ -1624,7 +1677,8 @@
                     <!-- Transaction ID Display (Auto-Generated) -->
                     <div class="form-group">
                         <label for="ns_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end)</span></label>
-                        <input type="text" id="ns_txnid_display" readonly style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                        <input type="text" id="ns_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                        <span class="char-counter" id="ns_txnid_display_counter">0/25</span>
                         <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Unique identifier auto-generated for this transaction - Non-editable</small>
                     </div>
                     
@@ -1635,7 +1689,8 @@
                         </div>
                         <div class="form-group">
                             <label for="ns_productinfo">Product Info <span class="required">*</span></label>
-                            <input type="text" id="ns_productinfo" name="productinfo" placeholder="Product or service description" required>
+                            <input type="text" id="ns_productinfo" name="productinfo" placeholder="Product or service description" required maxlength="100">
+                            <div id="ns_productinfo_counter" class="char-counter">0/100</div>
                         </div>
                     </div>
                     
@@ -1644,18 +1699,21 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="ns_firstname">First Name <span class="required">*</span></label>
-                            <input type="text" id="ns_firstname" name="firstname" placeholder="John" required>
+                            <input type="text" id="ns_firstname" name="firstname" placeholder="John" required maxlength="60">
+                            <div id="ns_firstname_counter" class="char-counter">0/60</div>
                         </div>
                         <div class="form-group">
                             <label for="ns_lastname">Last Name <span class="optional">(Optional)</span></label>
-                            <input type="text" id="ns_lastname" name="lastname" placeholder="Doe">
+                            <input type="text" id="ns_lastname" name="lastname" placeholder="Doe" maxlength="20">
+                            <div id="ns_lastname_counter" class="char-counter">0/20</div>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="ns_email">Email <span class="required">*</span></label>
-                            <input type="email" id="ns_email" name="email" placeholder="john.doe@example.com" required>
+                            <input type="email" id="ns_email" name="email" placeholder="john.doe@example.com" required maxlength="50">
+                            <div id="ns_email_counter" class="char-counter">0/50</div>
                             <div id="ns-email-error" class="error-message" style="display: none;"></div>
                         </div>
                         <div class="form-group">
@@ -1669,33 +1727,39 @@
                     
                     <div class="form-group">
                         <label for="ns_address1">Address Line 1 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="ns_address1" name="address1" placeholder="Street address">
+                        <input type="text" id="ns_address1" name="address1" placeholder="Street address" maxlength="100">
+                        <div id="ns_address1_counter" class="char-counter">0/100</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="ns_address2">Address Line 2 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="ns_address2" name="address2" placeholder="Apartment, suite, etc.">
+                        <input type="text" id="ns_address2" name="address2" placeholder="Apartment, suite, etc." maxlength="100">
+                        <div id="ns_address2_counter" class="char-counter">0/100</div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="ns_city">City <span class="optional">(Optional)</span></label>
-                            <input type="text" id="ns_city" name="city" placeholder="Mumbai">
+                            <input type="text" id="ns_city" name="city" placeholder="Mumbai" maxlength="50">
+                            <div id="ns_city_counter" class="char-counter">0/50</div>
                         </div>
                         <div class="form-group">
                             <label for="ns_state">State <span class="optional">(Optional)</span></label>
-                            <input type="text" id="ns_state" name="state" placeholder="Maharashtra">
+                            <input type="text" id="ns_state" name="state" placeholder="Maharashtra" maxlength="50">
+                            <div id="ns_state_counter" class="char-counter">0/50</div>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="ns_country">Country <span class="optional">(Optional)</span></label>
-                            <input type="text" id="ns_country" name="country" placeholder="India">
+                            <input type="text" id="ns_country" name="country" placeholder="India" maxlength="50">
+                            <div id="ns_country_counter" class="char-counter">0/50</div>
                         </div>
                         <div class="form-group">
                             <label for="ns_zipcode">ZIP Code <span class="optional">(Optional)</span></label>
-                            <input type="text" id="ns_zipcode" name="zipcode" placeholder="400001">
+                            <input type="text" id="ns_zipcode" name="zipcode" placeholder="400001" maxlength="20">
+                            <div id="ns_zipcode_counter" class="char-counter">0/20</div>
                         </div>
                     </div>
                 </div>
@@ -1711,28 +1775,33 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="ns_udf1">UDF1 <span class="optional">(Optional)</span></label>
-                            <input type="text" id="ns_udf1" name="udf1" placeholder="User defined field 1">
+                            <input type="text" id="ns_udf1" name="udf1" placeholder="User defined field 1" maxlength="255">
+                            <div id="ns_udf1_counter" class="char-counter">0/255</div>
                         </div>
                         <div class="form-group">
                             <label for="ns_udf2">UDF2 <span class="optional">(Optional)</span></label>
-                            <input type="text" id="ns_udf2" name="udf2" placeholder="User defined field 2">
+                            <input type="text" id="ns_udf2" name="udf2" placeholder="User defined field 2" maxlength="255">
+                            <div id="ns_udf2_counter" class="char-counter">0/255</div>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="ns_udf3">UDF3 <span class="optional">(Optional)</span></label>
-                            <input type="text" id="ns_udf3" name="udf3" placeholder="User defined field 3">
+                            <input type="text" id="ns_udf3" name="udf3" placeholder="User defined field 3" maxlength="255">
+                            <div id="ns_udf3_counter" class="char-counter">0/255</div>
                         </div>
                         <div class="form-group">
                             <label for="ns_udf4">UDF4 <span class="optional">(Optional)</span></label>
-                            <input type="text" id="ns_udf4" name="udf4" placeholder="User defined field 4">
+                            <input type="text" id="ns_udf4" name="udf4" placeholder="User defined field 4" maxlength="255">
+                            <div id="ns_udf4_counter" class="char-counter">0/255</div>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="ns_udf5">UDF5 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="ns_udf5" name="udf5" placeholder="User defined field 5">
+                        <input type="text" id="ns_udf5" name="udf5" placeholder="User defined field 5" maxlength="255">
+                        <div id="ns_udf5_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
                 
@@ -1743,11 +1812,13 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="ns_surl">Success URL <span class="required">*</span></label>
-                            <input type="url" id="ns_surl" name="surl" value="https://test.payu.in/admin/test_response" required>
+                            <input type="url" id="ns_surl" name="surl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                            <div id="ns_surl_counter" class="char-counter">0/255</div>
                         </div>
                         <div class="form-group">
                             <label for="ns_furl">Failure URL <span class="required">*</span></label>
-                            <input type="url" id="ns_furl" name="furl" value="https://test.payu.in/admin/test_response" required>
+                            <input type="url" id="ns_furl" name="furl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                            <div id="ns_furl_counter" class="char-counter">0/255</div>
                         </div>
                     </div>
                 </div>
@@ -1814,6 +1885,18 @@
                     <!-- Subscription Configuration -->
                     <div class="form-group">
                         <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Subscription Configuration</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="sub_billing_amount">Billing Amount <span class="required">*</span></label>
+                                <input type="number" id="sub_billing_amount" name="billing_amount" placeholder="Enter billing amount" min="1" step="0.01" required>
+                                <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Amount to be charged per billing cycle</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="sub_billing_currency">Billing Currency <span class="required">*</span></label>
+                                <input type="text" id="sub_billing_currency" name="billing_currency" value="INR" readonly style="background-color: #f0f0f0; cursor: not-allowed;">
+                                <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Currency is fixed to INR</small>
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="sub_billing_cycle">Billing Cycle <span class="required">*</span></label>
@@ -1886,7 +1969,8 @@
                     <!-- Transaction ID Display (Auto-Generated) -->
                     <div class="form-group">
                         <label for="sub_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end)</span></label>
-                        <input type="text" id="sub_txnid_display" readonly style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                        <input type="text" id="sub_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                        <span class="char-counter" id="sub_txnid_display_counter">0/25</span>
                         <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Unique identifier auto-generated for this transaction - Non-editable</small>
                     </div>
                     
@@ -1897,7 +1981,8 @@
                         </div>
                         <div class="form-group">
                             <label for="sub_productinfo">Product Info <span class="required">*</span></label>
-                            <input type="text" id="sub_productinfo" name="productinfo" placeholder="Product or service description" required>
+                            <input type="text" id="sub_productinfo" name="productinfo" placeholder="Product or service description" required maxlength="100">
+                            <div id="sub_productinfo_counter" class="char-counter">0/100</div>
                         </div>
                     </div>
                     
@@ -1906,18 +1991,21 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="sub_firstname">First Name <span class="required">*</span></label>
-                            <input type="text" id="sub_firstname" name="firstname" placeholder="John" required>
+                            <input type="text" id="sub_firstname" name="firstname" placeholder="John" required maxlength="60">
+                            <div id="sub_firstname_counter" class="char-counter">0/60</div>
                         </div>
                         <div class="form-group">
                             <label for="sub_lastname">Last Name <span class="optional">(Optional)</span></label>
-                            <input type="text" id="sub_lastname" name="lastname" placeholder="Doe">
+                            <input type="text" id="sub_lastname" name="lastname" placeholder="Doe" maxlength="20">
+                            <div id="sub_lastname_counter" class="char-counter">0/20</div>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="sub_email">Email <span class="required">*</span></label>
-                            <input type="email" id="sub_email" name="email" placeholder="john.doe@example.com" required>
+                            <input type="email" id="sub_email" name="email" placeholder="john.doe@example.com" required maxlength="50">
+                            <div id="sub_email_counter" class="char-counter">0/50</div>
                             <div id="sub-email-error" class="error-message" style="display: none;"></div>
                         </div>
                         <div class="form-group">
@@ -1931,33 +2019,39 @@
                     
                     <div class="form-group">
                         <label for="sub_address1">Address Line 1 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="sub_address1" name="address1" placeholder="Street address">
+                        <input type="text" id="sub_address1" name="address1" placeholder="Street address" maxlength="100">
+                        <div id="sub_address1_counter" class="char-counter">0/100</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="sub_address2">Address Line 2 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="sub_address2" name="address2" placeholder="Apartment, suite, etc.">
+                        <input type="text" id="sub_address2" name="address2" placeholder="Apartment, suite, etc." maxlength="100">
+                        <div id="sub_address2_counter" class="char-counter">0/100</div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="sub_city">City <span class="optional">(Optional)</span></label>
-                            <input type="text" id="sub_city" name="city" placeholder="Mumbai">
+                            <input type="text" id="sub_city" name="city" placeholder="Mumbai" maxlength="50">
+                            <div id="sub_city_counter" class="char-counter">0/50</div>
                         </div>
                         <div class="form-group">
                             <label for="sub_state">State <span class="optional">(Optional)</span></label>
-                            <input type="text" id="sub_state" name="state" placeholder="Maharashtra">
+                            <input type="text" id="sub_state" name="state" placeholder="Maharashtra" maxlength="50">
+                            <div id="sub_state_counter" class="char-counter">0/50</div>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="sub_country">Country <span class="optional">(Optional)</span></label>
-                            <input type="text" id="sub_country" name="country" placeholder="India">
+                            <input type="text" id="sub_country" name="country" placeholder="India" maxlength="50">
+                            <div id="sub_country_counter" class="char-counter">0/50</div>
                         </div>
                         <div class="form-group">
                             <label for="sub_zipcode">ZIP Code <span class="optional">(Optional)</span></label>
-                            <input type="text" id="sub_zipcode" name="zipcode" placeholder="400001">
+                            <input type="text" id="sub_zipcode" name="zipcode" placeholder="400001" maxlength="20">
+                            <div id="sub_zipcode_counter" class="char-counter">0/20</div>
                         </div>
                     </div>
                 </div>
@@ -1969,28 +2063,33 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="sub_udf1">UDF1 <span class="optional">(Optional)</span></label>
-                            <input type="text" id="sub_udf1" name="udf1" placeholder="">
+                            <input type="text" id="sub_udf1" name="udf1" placeholder="" maxlength="255">
+                            <div id="sub_udf1_counter" class="char-counter">0/255</div>
                         </div>
                         <div class="form-group">
                             <label for="sub_udf2">UDF2 <span class="optional">(Optional)</span></label>
-                            <input type="text" id="sub_udf2" name="udf2" placeholder="">
+                            <input type="text" id="sub_udf2" name="udf2" placeholder="" maxlength="255">
+                            <div id="sub_udf2_counter" class="char-counter">0/255</div>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="sub_udf3">UDF3 <span class="optional">(Optional)</span></label>
-                            <input type="text" id="sub_udf3" name="udf3" placeholder="">
+                            <input type="text" id="sub_udf3" name="udf3" placeholder="" maxlength="255">
+                            <div id="sub_udf3_counter" class="char-counter">0/255</div>
                         </div>
                         <div class="form-group">
                             <label for="sub_udf4">UDF4 <span class="optional">(Optional)</span></label>
-                            <input type="text" id="sub_udf4" name="udf4" placeholder="">
+                            <input type="text" id="sub_udf4" name="udf4" placeholder="" maxlength="255">
+                            <div id="sub_udf4_counter" class="char-counter">0/255</div>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="sub_udf5">UDF5 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="sub_udf5" name="udf5" placeholder="">
+                        <input type="text" id="sub_udf5" name="udf5" placeholder="" maxlength="255">
+                        <div id="sub_udf5_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
                 
@@ -2001,11 +2100,13 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="sub_surl">Success URL <span class="required">*</span></label>
-                            <input type="url" id="sub_surl" name="surl" value="https://test.payu.in/admin/test_response" required>
+                            <input type="url" id="sub_surl" name="surl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                            <div id="sub_surl_counter" class="char-counter">0/255</div>
                         </div>
                         <div class="form-group">
                             <label for="sub_furl">Failure URL <span class="required">*</span></label>
-                            <input type="url" id="sub_furl" name="furl" value="https://test.payu.in/admin/test_response" required>
+                            <input type="url" id="sub_furl" name="furl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                            <div id="sub_furl_counter" class="char-counter">0/255</div>
                         </div>
                     </div>
                 </div>
@@ -2177,7 +2278,8 @@
                     <!-- Transaction ID Display (Auto-Generated) -->
                     <div class="form-group">
                         <label for="tpv_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end)</span></label>
-                        <input type="text" id="tpv_txnid_display" readonly style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                        <input type="text" id="tpv_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                        <span class="char-counter" id="tpv_txnid_display_counter">0/25</span>
                         <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Unique identifier auto-generated for this transaction - Non-editable</small>
                     </div>
                     
@@ -2188,7 +2290,8 @@
                         </div>
                         <div class="form-group">
                             <label for="tpv_productinfo">Product Info <span class="required">*</span></label>
-                            <input type="text" id="tpv_productinfo" name="productinfo" placeholder="Product or service description" required>
+                            <input type="text" id="tpv_productinfo" name="productinfo" placeholder="Product or service description" required maxlength="100">
+                            <div id="tpv_productinfo_counter" class="char-counter">0/100</div>
                         </div>
                     </div>
                     
@@ -2197,18 +2300,21 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="tpv_firstname">First Name <span class="required">*</span></label>
-                            <input type="text" id="tpv_firstname" name="firstname" placeholder="John" required>
+                            <input type="text" id="tpv_firstname" name="firstname" placeholder="John" required maxlength="60">
+                            <div id="tpv_firstname_counter" class="char-counter">0/60</div>
                         </div>
                         <div class="form-group">
                             <label for="tpv_lastname">Last Name <span class="optional">(Optional)</span></label>
-                            <input type="text" id="tpv_lastname" name="lastname" placeholder="Doe">
+                            <input type="text" id="tpv_lastname" name="lastname" placeholder="Doe" maxlength="20">
+                            <div id="tpv_lastname_counter" class="char-counter">0/20</div>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="tpv_email">Email <span class="required">*</span></label>
-                            <input type="email" id="tpv_email" name="email" placeholder="john@example.com" required oninput="validateEmail('tpv')">
+                            <input type="email" id="tpv_email" name="email" placeholder="john@example.com" required oninput="validateEmail('tpv')" maxlength="50">
+                            <div id="tpv_email_counter" class="char-counter">0/50</div>
                             <div id="tpv-email-error" class="error-message" style="display: none;"></div>
                         </div>
                         <div class="form-group">
@@ -2224,33 +2330,39 @@
                     
                     <div class="form-group">
                         <label for="tpv_address1">Address Line 1 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="tpv_address1" name="address1" placeholder="Street address">
+                        <input type="text" id="tpv_address1" name="address1" placeholder="Street address" maxlength="100">
+                        <div id="tpv_address1_counter" class="char-counter">0/100</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="tpv_address2">Address Line 2 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="tpv_address2" name="address2" placeholder="Apartment, suite, etc.">
+                        <input type="text" id="tpv_address2" name="address2" placeholder="Apartment, suite, etc." maxlength="100">
+                        <div id="tpv_address2_counter" class="char-counter">0/100</div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="tpv_city">City <span class="optional">(Optional)</span></label>
-                            <input type="text" id="tpv_city" name="city" placeholder="Mumbai">
+                            <input type="text" id="tpv_city" name="city" placeholder="Mumbai" maxlength="50">
+                            <div id="tpv_city_counter" class="char-counter">0/50</div>
                         </div>
                         <div class="form-group">
                             <label for="tpv_state">State <span class="optional">(Optional)</span></label>
-                            <input type="text" id="tpv_state" name="state" placeholder="Maharashtra">
+                            <input type="text" id="tpv_state" name="state" placeholder="Maharashtra" maxlength="50">
+                            <div id="tpv_state_counter" class="char-counter">0/50</div>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="tpv_country">Country <span class="optional">(Optional)</span></label>
-                            <input type="text" id="tpv_country" name="country" placeholder="India">
+                            <input type="text" id="tpv_country" name="country" placeholder="India" maxlength="50">
+                            <div id="tpv_country_counter" class="char-counter">0/50</div>
                         </div>
                         <div class="form-group">
                             <label for="tpv_zipcode">ZIP Code <span class="optional">(Optional)</span></label>
-                            <input type="text" id="tpv_zipcode" name="zipcode" placeholder="400001">
+                            <input type="text" id="tpv_zipcode" name="zipcode" placeholder="400001" maxlength="20">
+                            <div id="tpv_zipcode_counter" class="char-counter">0/20</div>
                         </div>
                     </div>
                 </div>
@@ -2303,28 +2415,33 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="tpv_udf1">UDF1 <span class="optional">(Optional)</span></label>
-                            <input type="text" id="tpv_udf1" name="udf1" placeholder="User defined field 1">
+                            <input type="text" id="tpv_udf1" name="udf1" placeholder="User defined field 1" maxlength="255">
+                            <div id="tpv_udf1_counter" class="char-counter">0/255</div>
                         </div>
                         <div class="form-group">
                             <label for="tpv_udf2">UDF2 <span class="optional">(Optional)</span></label>
-                            <input type="text" id="tpv_udf2" name="udf2" placeholder="User defined field 2">
+                            <input type="text" id="tpv_udf2" name="udf2" placeholder="User defined field 2" maxlength="255">
+                            <div id="tpv_udf2_counter" class="char-counter">0/255</div>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="tpv_udf3">UDF3 <span class="optional">(Optional)</span></label>
-                            <input type="text" id="tpv_udf3" name="udf3" placeholder="User defined field 3">
+                            <input type="text" id="tpv_udf3" name="udf3" placeholder="User defined field 3" maxlength="255">
+                            <div id="tpv_udf3_counter" class="char-counter">0/255</div>
                         </div>
                         <div class="form-group">
                             <label for="tpv_udf4">UDF4 <span class="optional">(Optional)</span></label>
-                            <input type="text" id="tpv_udf4" name="udf4" placeholder="User defined field 4">
+                            <input type="text" id="tpv_udf4" name="udf4" placeholder="User defined field 4" maxlength="255">
+                            <div id="tpv_udf4_counter" class="char-counter">0/255</div>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="tpv_udf5">UDF5 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="tpv_udf5" name="udf5" placeholder="User defined field 5">
+                        <input type="text" id="tpv_udf5" name="udf5" placeholder="User defined field 5" maxlength="255">
+                        <div id="tpv_udf5_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
             </div>
@@ -2335,11 +2452,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="tpv_surl">Success URL <span class="required">*</span></label>
-                        <input type="url" id="tpv_surl" name="surl" value="https://test.payu.in/admin/test_response" required>
+                        <input type="url" id="tpv_surl" name="surl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                        <div id="tpv_surl_counter" class="char-counter">0/255</div>
                     </div>
                     <div class="form-group">
                         <label for="tpv_furl">Failure URL <span class="required">*</span></label>
-                        <input type="url" id="tpv_furl" name="furl" value="https://test.payu.in/admin/test_response" required>
+                        <input type="url" id="tpv_furl" name="furl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                        <div id="tpv_furl_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
             </div>
@@ -2452,7 +2571,8 @@
                 <!-- Transaction ID Display (Auto-Generated) -->
                 <div class="form-group">
                     <label for="upi_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end)</span></label>
-                    <input type="text" id="upi_txnid_display" readonly style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                    <input type="text" id="upi_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                    <span class="char-counter" id="upi_txnid_display_counter">0/25</span>
                     <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Unique identifier auto-generated for this transaction - Non-editable</small>
                 </div>
                 
@@ -2463,7 +2583,8 @@
                     </div>
                     <div class="form-group">
                         <label for="upi_productinfo">Product Info <span class="required">*</span></label>
-                        <input type="text" id="upi_productinfo" name="productinfo" placeholder="Product or service description" required>
+                        <input type="text" id="upi_productinfo" name="productinfo" placeholder="Product or service description" required maxlength="100">
+                        <div id="upi_productinfo_counter" class="char-counter">0/100</div>
                     </div>
                 </div>
                 
@@ -2472,18 +2593,21 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="upi_firstname">First Name <span class="required">*</span></label>
-                        <input type="text" id="upi_firstname" name="firstname" placeholder="John" required>
+                        <input type="text" id="upi_firstname" name="firstname" placeholder="John" required maxlength="60">
+                        <div id="upi_firstname_counter" class="char-counter">0/60</div>
                     </div>
                     <div class="form-group">
                         <label for="upi_lastname">Last Name <span class="optional">(Optional)</span></label>
-                        <input type="text" id="upi_lastname" name="lastname" placeholder="Doe">
+                        <input type="text" id="upi_lastname" name="lastname" placeholder="Doe" maxlength="20">
+                        <div id="upi_lastname_counter" class="char-counter">0/20</div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="upi_email">Email <span class="required">*</span></label>
-                        <input type="email" id="upi_email" name="email" placeholder="john.doe@example.com" required>
+                        <input type="email" id="upi_email" name="email" placeholder="john.doe@example.com" required maxlength="50">
+                        <div id="upi_email_counter" class="char-counter">0/50</div>
                         <div id="upi-email-error" class="error-message" style="display: none;"></div>
                     </div>
                     <div class="form-group">
@@ -2497,33 +2621,39 @@
                 
                 <div class="form-group">
                     <label for="upi_address1">Address Line 1 <span class="optional">(Optional)</span></label>
-                    <input type="text" id="upi_address1" name="address1" placeholder="Street address">
+                    <input type="text" id="upi_address1" name="address1" placeholder="Street address" maxlength="100">
+                    <div id="upi_address1_counter" class="char-counter">0/100</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="upi_address2">Address Line 2 <span class="optional">(Optional)</span></label>
-                    <input type="text" id="upi_address2" name="address2" placeholder="Apartment, suite, etc.">
+                    <input type="text" id="upi_address2" name="address2" placeholder="Apartment, suite, etc." maxlength="100">
+                    <div id="upi_address2_counter" class="char-counter">0/100</div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="upi_city">City <span class="optional">(Optional)</span></label>
-                        <input type="text" id="upi_city" name="city" placeholder="Mumbai">
+                        <input type="text" id="upi_city" name="city" placeholder="Mumbai" maxlength="50">
+                        <div id="upi_city_counter" class="char-counter">0/50</div>
                     </div>
                     <div class="form-group">
                         <label for="upi_state">State <span class="optional">(Optional)</span></label>
-                        <input type="text" id="upi_state" name="state" placeholder="Maharashtra">
+                        <input type="text" id="upi_state" name="state" placeholder="Maharashtra" maxlength="50">
+                        <div id="upi_state_counter" class="char-counter">0/50</div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="upi_country">Country <span class="optional">(Optional)</span></label>
-                        <input type="text" id="upi_country" name="country" placeholder="India">
+                        <input type="text" id="upi_country" name="country" placeholder="India" maxlength="50">
+                        <div id="upi_country_counter" class="char-counter">0/50</div>
                     </div>
                     <div class="form-group">
                         <label for="upi_zipcode">ZIP Code <span class="optional">(Optional)</span></label>
-                        <input type="text" id="upi_zipcode" name="zipcode" placeholder="400001">
+                        <input type="text" id="upi_zipcode" name="zipcode" placeholder="400001" maxlength="20">
+                        <div id="upi_zipcode_counter" class="char-counter">0/20</div>
                     </div>
                 </div>
             </div>
@@ -2535,28 +2665,33 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="upi_udf1">UDF1 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="upi_udf1" name="udf1" placeholder="">
+                        <input type="text" id="upi_udf1" name="udf1" placeholder="" maxlength="255">
+                        <div id="upi_udf1_counter" class="char-counter">0/255</div>
                     </div>
                     <div class="form-group">
                         <label for="upi_udf2">UDF2 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="upi_udf2" name="udf2" placeholder="">
+                        <input type="text" id="upi_udf2" name="udf2" placeholder="" maxlength="255">
+                        <div id="upi_udf2_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="upi_udf3">UDF3 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="upi_udf3" name="udf3" placeholder="">
+                        <input type="text" id="upi_udf3" name="udf3" placeholder="" maxlength="255">
+                        <div id="upi_udf3_counter" class="char-counter">0/255</div>
                     </div>
                     <div class="form-group">
                         <label for="upi_udf4">UDF4 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="upi_udf4" name="udf4" placeholder="">
+                        <input type="text" id="upi_udf4" name="udf4" placeholder="" maxlength="255">
+                        <div id="upi_udf4_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="upi_udf5">UDF5 <span class="optional">(Optional)</span></label>
-                    <input type="text" id="upi_udf5" name="udf5" placeholder="">
+                    <input type="text" id="upi_udf5" name="udf5" placeholder="" maxlength="255">
+                    <div id="upi_udf5_counter" class="char-counter">0/255</div>
                 </div>
             </div>
             
@@ -2567,11 +2702,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="upi_surl">Success URL <span class="required">*</span></label>
-                        <input type="url" id="upi_surl" name="surl" value="https://test.payu.in/admin/test_response" required>
+                        <input type="url" id="upi_surl" name="surl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                        <div id="upi_surl_counter" class="char-counter">0/255</div>
                     </div>
                     <div class="form-group">
                         <label for="upi_furl">Failure URL <span class="required">*</span></label>
-                        <input type="url" id="upi_furl" name="furl" value="https://test.payu.in/admin/test_response" required>
+                        <input type="url" id="upi_furl" name="furl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                        <div id="upi_furl_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
             </div>
@@ -2663,7 +2800,8 @@
                 <!-- Transaction ID Display (Auto-Generated) -->
                 <div class="form-group">
                     <label for="preauth_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end)</span></label>
-                    <input type="text" id="preauth_txnid_display" readonly style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                    <input type="text" id="preauth_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                    <span class="char-counter" id="preauth_txnid_display_counter">0/25</span>
                     <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Unique identifier auto-generated for this transaction - Non-editable</small>
                 </div>
                 
@@ -2674,7 +2812,8 @@
                     </div>
                     <div class="form-group">
                         <label for="preauth_productinfo">Product Info <span class="required">*</span></label>
-                        <input type="text" id="preauth_productinfo" name="productinfo" placeholder="Product or service description" required>
+                        <input type="text" id="preauth_productinfo" name="productinfo" placeholder="Product or service description" required maxlength="100">
+                        <div id="preauth_productinfo_counter" class="char-counter">0/100</div>
                     </div>
                 </div>
                 
@@ -2683,18 +2822,21 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="preauth_firstname">First Name <span class="required">*</span></label>
-                        <input type="text" id="preauth_firstname" name="firstname" placeholder="John" required>
+                        <input type="text" id="preauth_firstname" name="firstname" placeholder="John" required maxlength="60">
+                        <div id="preauth_firstname_counter" class="char-counter">0/60</div>
                     </div>
                     <div class="form-group">
                         <label for="preauth_lastname">Last Name <span class="optional">(Optional)</span></label>
-                        <input type="text" id="preauth_lastname" name="lastname" placeholder="Doe">
+                        <input type="text" id="preauth_lastname" name="lastname" placeholder="Doe" maxlength="20">
+                        <div id="preauth_lastname_counter" class="char-counter">0/20</div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="preauth_email">Email <span class="required">*</span></label>
-                        <input type="email" id="preauth_email" name="email" placeholder="john.doe@example.com" required>
+                        <input type="email" id="preauth_email" name="email" placeholder="john.doe@example.com" required maxlength="50">
+                        <div id="preauth_email_counter" class="char-counter">0/50</div>
                         <div id="preauth-email-error" class="error-message" style="display: none;"></div>
                     </div>
                     <div class="form-group">
@@ -2708,33 +2850,39 @@
                 
                 <div class="form-group">
                     <label for="preauth_address1">Address Line 1 <span class="optional">(Optional)</span></label>
-                    <input type="text" id="preauth_address1" name="address1" placeholder="Street address">
+                    <input type="text" id="preauth_address1" name="address1" placeholder="Street address" maxlength="100">
+                    <div id="preauth_address1_counter" class="char-counter">0/100</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="preauth_address2">Address Line 2 <span class="optional">(Optional)</span></label>
-                    <input type="text" id="preauth_address2" name="address2" placeholder="Apartment, suite, etc.">
+                    <input type="text" id="preauth_address2" name="address2" placeholder="Apartment, suite, etc." maxlength="100">
+                    <div id="preauth_address2_counter" class="char-counter">0/100</div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="preauth_city">City <span class="optional">(Optional)</span></label>
-                        <input type="text" id="preauth_city" name="city" placeholder="Mumbai">
+                        <input type="text" id="preauth_city" name="city" placeholder="Mumbai" maxlength="50">
+                        <div id="preauth_city_counter" class="char-counter">0/50</div>
                     </div>
                     <div class="form-group">
                         <label for="preauth_state">State <span class="optional">(Optional)</span></label>
-                        <input type="text" id="preauth_state" name="state" placeholder="Maharashtra">
+                        <input type="text" id="preauth_state" name="state" placeholder="Maharashtra" maxlength="50">
+                        <div id="preauth_state_counter" class="char-counter">0/50</div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="preauth_country">Country <span class="optional">(Optional)</span></label>
-                        <input type="text" id="preauth_country" name="country" placeholder="India">
+                        <input type="text" id="preauth_country" name="country" placeholder="India" maxlength="50">
+                        <div id="preauth_country_counter" class="char-counter">0/50</div>
                     </div>
                     <div class="form-group">
                         <label for="preauth_zipcode">ZIP Code <span class="optional">(Optional)</span></label>
-                        <input type="text" id="preauth_zipcode" name="zipcode" placeholder="400001">
+                        <input type="text" id="preauth_zipcode" name="zipcode" placeholder="400001" maxlength="20">
+                        <div id="preauth_zipcode_counter" class="char-counter">0/20</div>
                     </div>
                 </div>
             </div>
@@ -2746,28 +2894,33 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="preauth_udf1">UDF1 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="preauth_udf1" name="udf1" placeholder="">
+                        <input type="text" id="preauth_udf1" name="udf1" placeholder="" maxlength="255">
+                        <div id="preauth_udf1_counter" class="char-counter">0/255</div>
                     </div>
                     <div class="form-group">
                         <label for="preauth_udf2">UDF2 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="preauth_udf2" name="udf2" placeholder="">
+                        <input type="text" id="preauth_udf2" name="udf2" placeholder="" maxlength="255">
+                        <div id="preauth_udf2_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="preauth_udf3">UDF3 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="preauth_udf3" name="udf3" placeholder="">
+                        <input type="text" id="preauth_udf3" name="udf3" placeholder="" maxlength="255">
+                        <div id="preauth_udf3_counter" class="char-counter">0/255</div>
                     </div>
                     <div class="form-group">
                         <label for="preauth_udf4">UDF4 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="preauth_udf4" name="udf4" placeholder="">
+                        <input type="text" id="preauth_udf4" name="udf4" placeholder="" maxlength="255">
+                        <div id="preauth_udf4_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="preauth_udf5">UDF5 <span class="optional">(Optional)</span></label>
-                    <input type="text" id="preauth_udf5" name="udf5" placeholder="">
+                    <input type="text" id="preauth_udf5" name="udf5" placeholder="" maxlength="255">
+                    <div id="preauth_udf5_counter" class="char-counter">0/255</div>
                 </div>
             </div>
             
@@ -2778,11 +2931,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="preauth_surl">Success URL <span class="required">*</span></label>
-                        <input type="url" id="preauth_surl" name="surl" value="https://test.payu.in/admin/test_response" required>
+                        <input type="url" id="preauth_surl" name="surl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                        <div id="preauth_surl_counter" class="char-counter">0/255</div>
                     </div>
                     <div class="form-group">
                         <label for="preauth_furl">Failure URL <span class="required">*</span></label>
-                        <input type="url" id="preauth_furl" name="furl" value="https://test.payu.in/admin/test_response" required>
+                        <input type="url" id="preauth_furl" name="furl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                        <div id="preauth_furl_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
             </div>
@@ -2903,7 +3058,8 @@
                 <!-- Transaction ID Display (Auto-Generated) -->
                 <div class="form-group">
                     <label for="cp_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end)</span></label>
-                    <input type="text" id="cp_txnid_display" readonly style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                    <input type="text" id="cp_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                    <span class="char-counter" id="cp_txnid_display_counter">0/25</span>
                     <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Unique identifier auto-generated for this transaction - Non-editable</small>
                 </div>
                 
@@ -2914,7 +3070,8 @@
                     </div>
                     <div class="form-group">
                         <label for="cp_productinfo">Product Info <span class="required">*</span></label>
-                        <input type="text" id="cp_productinfo" name="productinfo" placeholder="Product or service description" required>
+                        <input type="text" id="cp_productinfo" name="productinfo" placeholder="Product or service description" required maxlength="100">
+                        <div id="cp_productinfo_counter" class="char-counter">0/100</div>
                     </div>
                 </div>
                 
@@ -2923,18 +3080,21 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="cp_firstname">First Name <span class="required">*</span></label>
-                        <input type="text" id="cp_firstname" name="firstname" placeholder="John" required>
+                        <input type="text" id="cp_firstname" name="firstname" placeholder="John" required maxlength="60">
+                        <div id="cp_firstname_counter" class="char-counter">0/60</div>
                     </div>
                     <div class="form-group">
                         <label for="cp_lastname">Last Name <span class="optional">(Optional)</span></label>
-                        <input type="text" id="cp_lastname" name="lastname" placeholder="Doe">
+                        <input type="text" id="cp_lastname" name="lastname" placeholder="Doe" maxlength="20">
+                        <div id="cp_lastname_counter" class="char-counter">0/20</div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="cp_email">Email <span class="required">*</span></label>
-                        <input type="email" id="cp_email" name="email" placeholder="john.doe@example.com" required>
+                        <input type="email" id="cp_email" name="email" placeholder="john.doe@example.com" required maxlength="50">
+                        <div id="cp_email_counter" class="char-counter">0/50</div>
                         <div id="cp-email-error" class="error-message" style="display: none;"></div>
                     </div>
                     <div class="form-group">
@@ -2948,33 +3108,39 @@
                 
                 <div class="form-group">
                     <label for="cp_address1">Address Line 1 <span class="optional">(Optional)</span></label>
-                    <input type="text" id="cp_address1" name="address1" placeholder="Street address">
+                    <input type="text" id="cp_address1" name="address1" placeholder="Street address" maxlength="100">
+                    <div id="cp_address1_counter" class="char-counter">0/100</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="cp_address2">Address Line 2 <span class="optional">(Optional)</span></label>
-                    <input type="text" id="cp_address2" name="address2" placeholder="Apartment, suite, etc.">
+                    <input type="text" id="cp_address2" name="address2" placeholder="Apartment, suite, etc." maxlength="100">
+                    <div id="cp_address2_counter" class="char-counter">0/100</div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="cp_city">City <span class="optional">(Optional)</span></label>
-                        <input type="text" id="cp_city" name="city" placeholder="Mumbai">
+                        <input type="text" id="cp_city" name="city" placeholder="Mumbai" maxlength="50">
+                        <div id="cp_city_counter" class="char-counter">0/50</div>
                     </div>
                     <div class="form-group">
                         <label for="cp_state">State <span class="optional">(Optional)</span></label>
-                        <input type="text" id="cp_state" name="state" placeholder="Maharashtra">
+                        <input type="text" id="cp_state" name="state" placeholder="Maharashtra" maxlength="50">
+                        <div id="cp_state_counter" class="char-counter">0/50</div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="cp_country">Country <span class="optional">(Optional)</span></label>
-                        <input type="text" id="cp_country" name="country" placeholder="India">
+                        <input type="text" id="cp_country" name="country" placeholder="India" maxlength="50">
+                        <div id="cp_country_counter" class="char-counter">0/50</div>
                     </div>
                     <div class="form-group">
                         <label for="cp_zipcode">ZIP Code <span class="optional">(Optional)</span></label>
-                        <input type="text" id="cp_zipcode" name="zipcode" placeholder="400001">
+                        <input type="text" id="cp_zipcode" name="zipcode" placeholder="400001" maxlength="20">
+                        <div id="cp_zipcode_counter" class="char-counter">0/20</div>
                     </div>
                 </div>
             </div>
@@ -2990,28 +3156,33 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="cp_udf1">UDF1 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="cp_udf1" name="udf1" placeholder="User defined field 1">
+                        <input type="text" id="cp_udf1" name="udf1" placeholder="User defined field 1" maxlength="255">
+                        <div id="cp_udf1_counter" class="char-counter">0/255</div>
                     </div>
                     <div class="form-group">
                         <label for="cp_udf2">UDF2 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="cp_udf2" name="udf2" placeholder="User defined field 2">
+                        <input type="text" id="cp_udf2" name="udf2" placeholder="User defined field 2" maxlength="255">
+                        <div id="cp_udf2_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="cp_udf3">UDF3 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="cp_udf3" name="udf3" placeholder="User defined field 3">
+                        <input type="text" id="cp_udf3" name="udf3" placeholder="User defined field 3" maxlength="255">
+                        <div id="cp_udf3_counter" class="char-counter">0/255</div>
                     </div>
                     <div class="form-group">
                         <label for="cp_udf4">UDF4 <span class="optional">(Optional)</span></label>
-                        <input type="text" id="cp_udf4" name="udf4" placeholder="User defined field 4">
+                        <input type="text" id="cp_udf4" name="udf4" placeholder="User defined field 4" maxlength="255">
+                        <div id="cp_udf4_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="cp_udf5">UDF5 <span class="optional">(Optional)</span></label>
-                    <input type="text" id="cp_udf5" name="udf5" placeholder="User defined field 5">
+                    <input type="text" id="cp_udf5" name="udf5" placeholder="User defined field 5" maxlength="255">
+                    <div id="cp_udf5_counter" class="char-counter">0/255</div>
                 </div>
             </div>
             
@@ -3022,11 +3193,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="cp_surl">Success URL <span class="required">*</span></label>
-                        <input type="url" id="cp_surl" name="surl" value="https://test.payu.in/admin/test_response" required>
+                        <input type="url" id="cp_surl" name="surl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                        <div id="cp_surl_counter" class="char-counter">0/255</div>
                     </div>
                     <div class="form-group">
                         <label for="cp_furl">Failure URL <span class="required">*</span></label>
-                        <input type="url" id="cp_furl" name="furl" value="https://test.payu.in/admin/test_response" required>
+                        <input type="url" id="cp_furl" name="furl" value="https://test.payu.in/admin/test_response" required maxlength="255">
+                        <div id="cp_furl_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
             </div>
@@ -3103,7 +3276,8 @@
                 <!-- Transaction ID Display (Auto-Generated) -->
                 <div class="form-group">
                     <label for="split_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end)</span></label>
-                    <input type="text" id="split_txnid_display" readonly style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                    <input type="text" id="split_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                    <span class="char-counter" id="split_txnid_display_counter">0/25</span>
                     <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Unique identifier auto-generated for this transaction - Non-editable</small>
                 </div>
                 
@@ -3397,7 +3571,8 @@
                 <!-- Transaction ID Display (Auto-Generated) -->
                 <div class="form-group">
                     <label for="bo_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end)</span></label>
-                    <input type="text" id="bo_txnid_display" readonly style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                    <input type="text" id="bo_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
+                    <span class="char-counter" id="bo_txnid_display_counter">0/25</span>
                     <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Unique identifier auto-generated for this transaction - Non-editable</small>
                 </div>
                 
@@ -3780,8 +3955,19 @@
         const DEFAULT_KEY = 'a4vGC2';
         const DEFAULT_SALT = 'hKvGJP28d2ZUuCRz5BnDag58QBdCxBli';
         
+        // Back Button Detection - Auto-refresh for new transaction ID
+        window.addEventListener('pageshow', function(event) {
+            // Check if page was restored from browser cache (back/forward button)
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                console.log('⟲ Page restored from cache (back button) - Refreshing for new transaction ID');
+                window.location.reload(true); // Force reload from server
+            }
+        });
+        
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔄 Page Loaded - Generating fresh transaction IDs for all flows');
+            
             // Initialize transaction IDs for all flows
             generateTransactionId('crossborder');
             generateTransactionId('nonseamless');
@@ -3932,7 +4118,121 @@
             } else {
                 console.log('No saved flow found - showing landing page');
             }
+            
+            // Initialize character counters for all fields with maxlength
+            initializeCharCounters();
+            
+            // Initialize transaction ID field listeners (for custom credentials mode)
+            initializeTxnidListeners();
         });
+        
+        // Character Counter Functions
+        function updateCharCounter(inputElement) {
+            const maxLength = parseInt(inputElement.getAttribute('maxlength'));
+            const currentLength = inputElement.value.length;
+            const remaining = maxLength - currentLength;
+            
+            // Find the associated counter element
+            const counterId = inputElement.id + '_counter';
+            let counter = document.getElementById(counterId);
+            
+            if (counter) {
+                counter.textContent = `${currentLength}/${maxLength}`;
+                
+                // Update styling based on usage
+                counter.classList.remove('warning', 'error');
+                if (remaining === 0) {
+                    counter.classList.add('error');
+                } else if (remaining <= maxLength * 0.1) {  // Warning at 90% usage
+                    counter.classList.add('warning');
+                }
+            }
+        }
+        
+        function initializeCharCounters() {
+            // Get all inputs with maxlength attribute
+            const inputsWithMaxLength = document.querySelectorAll('input[maxlength]:not([type="hidden"])');
+            
+            inputsWithMaxLength.forEach(input => {
+                // Add input event listener
+                input.addEventListener('input', function() {
+                    updateCharCounter(this);
+                });
+                
+                // Initial update (handles pre-filled values)
+                updateCharCounter(input);
+            });
+            
+            // Re-initialize counters when form values change programmatically
+            // This ensures counters update when default values are set
+            setTimeout(() => {
+                inputsWithMaxLength.forEach(input => {
+                    if (input.value) {
+                        updateCharCounter(input);
+                    }
+                });
+            }, 100);
+        }
+        
+        // Transaction ID Field Listeners (for custom credentials mode)
+        function initializeTxnidListeners() {
+            // All transaction ID display fields across flows
+            const txnidFields = [
+                'cb_txnid_display', 'ns_txnid_display', 'sub_txnid_display',
+                'tpv_txnid_display', 'upi_txnid_display', 'preauth_txnid_display',
+                'cp_txnid_display', 'split_txnid_display', 'bo_txnid_display'
+            ];
+            
+            txnidFields.forEach(fieldId => {
+                const displayField = document.getElementById(fieldId);
+                if (!displayField) return;
+                
+                // Extract prefix from field ID (remove _txnid_display)
+                const prefix = fieldId.replace('_txnid_display', '');
+                const hiddenField = document.getElementById(prefix + '_txnid');
+                const hashField = document.getElementById(prefix + '_hash');
+                
+                // Input event: sync display → hidden field and update counter
+                displayField.addEventListener('input', function() {
+                    if (hiddenField) {
+                        hiddenField.value = this.value;
+                    }
+                    
+                    // Clear hash (needs regeneration with new txnid)
+                    if (hashField) {
+                        hashField.value = '';
+                    }
+                    
+                    // Update character counter
+                    updateCharCounter(this);
+                });
+                
+                // Blur event: validate format
+                displayField.addEventListener('blur', function() {
+                    const value = this.value.trim();
+                    
+                    // Skip validation if empty (will be caught by required validation)
+                    if (!value) return;
+                    
+                    // Allow only alphanumeric, underscore, and hyphen
+                    const validPattern = /^[A-Za-z0-9_-]+$/;
+                    
+                    if (!validPattern.test(value)) {
+                        alert('Transaction ID can only contain letters, numbers, underscores (_), and hyphens (-).\nPlease remove any special characters.');
+                        this.focus();
+                        return;
+                    }
+                    
+                    // Check length (should be enforced by maxlength, but double-check)
+                    if (value.length > 25) {
+                        alert('Transaction ID cannot exceed 25 characters.\nCurrent length: ' + value.length);
+                        this.focus();
+                    }
+                });
+            });
+            
+            console.log('✓ Transaction ID field listeners initialized for custom credentials mode');
+        }
         
         // UPI OTM Date Validation Function
         function validateUpiOtmDates() {
@@ -5016,8 +5316,8 @@
             // Show selected flow
             document.getElementById(selectedFlow + 'Flow').classList.add('active');
             
-            // Generate fresh transaction ID for the selected flow
-            generateTransactionId(selectedFlow);
+            // Transaction ID already generated on page load - keeping it stable
+            console.log('✓ Using stable transaction ID for ' + selectedFlow + ' flow');
             
             // Initialize split flow with a default row
             if (selectedFlow === 'split') {
@@ -5069,27 +5369,45 @@
         
         // Transaction ID Generation
         function generateTransactionId(flow) {
-            const timestamp = Date.now();
-            const txnId = 'txn_' + flow + '_' + timestamp;
-            const prefix = flow === 'crossborder' ? 'cb' : (flow === 'subscription' ? 'sub' : (flow === 'tpv' ? 'tpv' : (flow === 'upiotm' ? 'upi' : (flow === 'preauth' ? 'preauth' : (flow === 'checkoutplus' ? 'cp' : (flow === 'split' ? 'split' : (flow === 'bankoffer' ? 'bo' : 'ns')))))));
+            // Element ID prefix (matches HTML element IDs)
+            const elementPrefix = flow === 'crossborder' ? 'cb' : (flow === 'subscription' ? 'sub' : (flow === 'tpv' ? 'tpv' : (flow === 'upiotm' ? 'upi' : (flow === 'preauth' ? 'preauth' : (flow === 'checkoutplus' ? 'cp' : (flow === 'split' ? 'split' : (flow === 'bankoffer' ? 'bo' : 'ns')))))));
+            
+            // Short prefix for transaction ID value (to keep within 25 chars)
+            const txnPrefix = flow === 'crossborder' ? 'CB' : (flow === 'subscription' ? 'SUB' : (flow === 'tpv' ? 'TPV' : (flow === 'upiotm' ? 'UPI' : (flow === 'preauth' ? 'PRE' : (flow === 'checkoutplus' ? 'CP' : (flow === 'split' ? 'SPL' : (flow === 'bankoffer' ? 'BO' : 'NS')))))));
+            
+            // Generate shorter transaction ID (max 25 chars)
+            // Format: TXN_<PREFIX>_<TIMESTAMP_SEC>_<RANDOM>
+            // Example: TXN_CB_1731849600_9234 = 24 chars (max 25 chars)
+            const timestampSec = Math.floor(Date.now() / 1000); // Unix timestamp in seconds
+            const randomSuffix = Math.floor(Math.random() * 10000); // 4-digit random
+            const txnId = 'TXN_' + txnPrefix + '_' + timestampSec + '_' + randomSuffix;
+            
+            // Verify length is within limit
+            if (txnId.length > 25) {
+                console.warn('⚠️ Generated txnId exceeds 25 chars:', txnId, '(', txnId.length, 'chars)');
+            }
             
             // Update hidden field (for form submission)
-            const txnidField = document.getElementById(prefix + '_txnid');
+            const txnidField = document.getElementById(elementPrefix + '_txnid');
             if (txnidField) {
                 txnidField.value = txnId;
-                console.log('✓ Generated Transaction ID for ' + flow + ':', txnId);
-                console.log('  Hidden Field ID:', prefix + '_txnid');
+                console.log('🆔 Generated Transaction ID for ' + flow + ':', txnId, '(' + txnId.length + ' chars)');
+                console.log('   ├─ Hidden Field: ' + elementPrefix + '_txnid ✓');
             } else {
-                console.error('✗ Transaction ID field NOT FOUND:', prefix + '_txnid');
+                console.error('✗ Transaction ID field NOT FOUND:', elementPrefix + '_txnid');
             }
             
             // Update display field (for user visibility)
-            const txnidDisplayField = document.getElementById(prefix + '_txnid_display');
+            const txnidDisplayField = document.getElementById(elementPrefix + '_txnid_display');
             if (txnidDisplayField) {
                 txnidDisplayField.value = txnId;
-                console.log('  Display Field ID:', prefix + '_txnid_display', '✓');
+                console.log('   └─ Display Field: ' + elementPrefix + '_txnid_display ✓');
+                console.log('   💡 This ID will remain stable until payment or page refresh');
+                
+                // Update character counter if it exists
+                updateCharCounter(txnidDisplayField);
             } else {
-                console.error('✗ Transaction ID Display field NOT FOUND:', prefix + '_txnid_display');
+                console.error('✗ Transaction ID Display field NOT FOUND:', elementPrefix + '_txnid_display');
             }
             
             return txnId;
@@ -5216,15 +5534,58 @@
             const isCustom = document.getElementById(prefix + '_use_custom_keys').checked;
             const customFields = document.getElementById(prefix + '-custom-key-fields');
             
+            // Get transaction ID fields
+            const txnidDisplay = document.getElementById(prefix + '_txnid_display');
+            const txnidHidden = document.getElementById(prefix + '_txnid');
+            const txnidLabel = document.querySelector('label[for="' + prefix + '_txnid_display"]');
+            
             if (isCustom) {
+                // Enable custom credentials mode
                 customFields.classList.add('active');
                 document.getElementById(prefix + '_custom_key').value = '';
                 document.getElementById(prefix + '_custom_salt').value = '';
                 document.getElementById(prefix + '_custom_salt').type = 'password';
+                
+                // Make Transaction ID editable
+                if (txnidDisplay) {
+                    txnidDisplay.removeAttribute('readonly');
+                    txnidDisplay.style.backgroundColor = '#ffffff';
+                    txnidDisplay.style.cursor = 'text';
+                    txnidDisplay.value = ''; // Clear for merchant input
+                    
+                    if (txnidHidden) {
+                        txnidHidden.value = ''; // Clear hidden field too
+                    }
+                    
+                    console.log('✓ Transaction ID field enabled for editing');
+                }
+                
+                // Update label to indicate custom txnid
+                if (txnidLabel) {
+                    txnidLabel.innerHTML = 'Transaction ID <span class="required">*</span> <span style="color: #ed8936;">(Enter Your Custom txnid - Max 25 chars)</span>';
+                }
             } else {
+                // Disable custom credentials mode
                 customFields.classList.remove('active');
                 document.getElementById(prefix + '_custom_key').value = '';
                 document.getElementById(prefix + '_custom_salt').value = '';
+                
+                // Make Transaction ID readonly again
+                if (txnidDisplay) {
+                    txnidDisplay.setAttribute('readonly', true);
+                    txnidDisplay.style.backgroundColor = '#f0f0f0';
+                    txnidDisplay.style.cursor = 'not-allowed';
+                    
+                    console.log('✓ Transaction ID field disabled - regenerating auto txnid');
+                }
+                
+                // Update label back to auto-generated
+                if (txnidLabel) {
+                    txnidLabel.innerHTML = 'Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end)</span>';
+                }
+                
+                // Regenerate auto transaction ID
+                generateTransactionId(flow);
             }
             
             // Clear cached hash
@@ -5358,6 +5719,7 @@
                 const today = new Date().toISOString().split('T')[0];
                 
                 // Force set the values - these must be current date and 1
+                document.getElementById('cb_billing_amount').value = '';  // Clear billing amount - merchant must fill
                 document.getElementById('cb_billing_cycle').value = 'MONTHLY';
                 document.getElementById('cb_billing_interval').value = '1';
                 document.getElementById('cb_payment_start_date').value = today;
@@ -5366,6 +5728,7 @@
                 console.log('✓ Cross Border Subscription fields set:');
                 console.log('  - SI: 1 (readonly, pre-filled in HTML)');
                 console.log('  - API Version: 7 (readonly, pre-filled in HTML)');
+                console.log('  - Billing Amount: (empty - merchant must fill)');
                 console.log('  - Payment Start Date:', today);
                 console.log('  - Billing Interval: 1');
                 console.log('  - Billing Cycle: MONTHLY');
@@ -5406,151 +5769,24 @@
         }
         
         // TPV Payment Type Selection
-        // Reset Form Fields
+        // Reset Form Fields - Refresh page for new transaction ID
         function resetFormFields(flow) {
-            console.log('Resetting form fields for flow:', flow);
-            const prefix = flow === 'crossborder' ? 'cb' : (flow === 'subscription' ? 'sub' : (flow === 'tpv' ? 'tpv' : (flow === 'upiotm' ? 'upi' : (flow === 'preauth' ? 'preauth' : 'ns'))));
+            console.log('🔄 Generate New Payment requested for flow:', flow);
             
-            // Reset payment details
-            const amountField = document.getElementById(prefix + '_amount');
-            if (amountField) {
-                // Special handling for UPI OTM - don't clear, set to default 17000
-                if (flow === 'upiotm') {
-                    amountField.value = '17000';
-                    console.log('Set UPI OTM amount to default: 17000');
-                } else {
-                    amountField.value = '';
-                    console.log('Reset amount field');
-                }
+            // Ask for confirmation before refreshing
+            const confirmed = confirm(
+                '🔄 Generate New Payment\n\n' +
+                'This will refresh the page and generate a new Transaction ID.\n\n' +
+                'Current data will be cleared. Do you want to continue?'
+            );
+            
+            if (confirmed) {
+                console.log('✓ User confirmed - Refreshing page for new transaction ID');
+                // Refresh the page to get fresh transaction IDs
+                window.location.reload();
+            } else {
+                console.log('✗ User cancelled - Keeping current data');
             }
-            const productinfoField = document.getElementById(prefix + '_productinfo');
-            if (productinfoField) {
-                productinfoField.value = '';
-                console.log('Reset productinfo field');
-            }
-            
-            // Reset customer details
-            const firstnameField = document.getElementById(prefix + '_firstname');
-            if (firstnameField) firstnameField.value = '';
-            
-            const lastname = document.getElementById(prefix + '_lastname');
-            if (lastname) lastname.value = '';
-            
-            const emailField = document.getElementById(prefix + '_email');
-            if (emailField) emailField.value = '';
-            
-            const phoneField = document.getElementById(prefix + '_phone');
-            if (phoneField) phoneField.value = '';
-            
-            // Reset address fields
-            const address1 = document.getElementById(prefix + '_address1');
-            if (address1) address1.value = '';
-            const address2 = document.getElementById(prefix + '_address2');
-            if (address2) address2.value = '';
-            const city = document.getElementById(prefix + '_city');
-            if (city) city.value = '';
-            const state = document.getElementById(prefix + '_state');
-            if (state) state.value = '';
-            const country = document.getElementById(prefix + '_country');
-            if (country) country.value = '';
-            const zipcode = document.getElementById(prefix + '_zipcode');
-            if (zipcode) zipcode.value = '';
-            
-            // Reset buyer type for cross border to default (Individual = 0)
-            if (flow === 'crossborder') {
-                document.getElementById('cb_buyer_type').value = '0';
-            }
-            
-            // Reset custom keys
-            const useCustomKeysCheckbox = document.getElementById(prefix + '_use_custom_keys');
-            if (useCustomKeysCheckbox) {
-                useCustomKeysCheckbox.checked = false;
-            }
-            const customKeyFields = document.getElementById(prefix + '-custom-key-fields');
-            if (customKeyFields) {
-                customKeyFields.classList.remove('active');
-            }
-            const customKey = document.getElementById(prefix + '_custom_key');
-            if (customKey) customKey.value = '';
-            const customSalt = document.getElementById(prefix + '_custom_salt');
-            if (customSalt) {
-                customSalt.value = '';
-                customSalt.type = 'password';
-            }
-            
-            // Reset payment method checkboxes
-            document.querySelectorAll('input[name="' + prefix + '_paymethod"]').forEach(function(checkbox) {
-                checkbox.checked = false;
-            });
-            
-            // Reset redirect URLs to default
-            const surl = document.getElementById(prefix + '_surl');
-            if (surl) surl.value = 'https://test.payu.in/admin/test_response';
-            const furl = document.getElementById(prefix + '_furl');
-            if (furl) furl.value = 'https://test.payu.in/admin/test_response';
-            
-            // Clear validation errors
-            const emailError = document.getElementById(prefix + '-email-error');
-            if (emailError) emailError.style.display = 'none';
-            const phoneError = document.getElementById(prefix + '-phone-error');
-            if (phoneError) phoneError.style.display = 'none';
-            
-            document.querySelectorAll('.error').forEach(function(element) {
-                element.classList.remove('error');
-            });
-            
-            // Clear hidden form fields
-            const hashField = document.getElementById(prefix + '_hash');
-            if (hashField) hashField.value = '';
-            
-            // Force clear all input fields in the flow section
-            const flowSection = document.getElementById(flow + 'Flow');
-            if (flowSection) {
-                const today = new Date().toISOString().split('T')[0];
-                const allInputs = flowSection.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="url"], input[type="date"], select');
-                allInputs.forEach(function(input) {
-                    // Don't clear hidden form fields, readonly fields, or txnid, surl, furl
-                    if (input.type !== 'hidden' && !input.readOnly && !input.id.includes('txnid') && !input.id.includes('surl') && !input.id.includes('furl')) {
-                        // Reset to default values for selects
-                        if (input.tagName === 'SELECT') {
-                            // Reset specific selects to their defaults
-                            if (input.id === 'cb_billing_cycle' || input.id === 'sub_billing_cycle') {
-                                input.value = 'MONTHLY';
-                            } else if (input.id === 'cb_billing_interval' || input.id === 'sub_billing_interval') {
-                                input.value = '1';
-                            } else if (input.id === 'cb_buyer_type') {
-                                input.value = '0'; // Default to Individual
-                            } else {
-                                input.selectedIndex = 0;
-                            }
-                        } else if (input.type === 'date' && (input.id === 'cb_payment_start_date' || input.id === 'sub_payment_start_date' || input.id === 'upi_payment_start_date')) {
-                            // Set subscription start dates to today (not empty)
-                            input.value = today;
-                            console.log('Set ' + input.id + ' to today:', today);
-                        } else if (input.type === 'date' && input.id === 'upi_payment_end_date') {
-                            // Set UPI OTM end date to 7 days from today
-                            const endDate = new Date();
-                            endDate.setDate(endDate.getDate() + 7);
-                            input.value = endDate.toISOString().split('T')[0];
-                            console.log('Set UPI OTM end date to 7 days from today:', input.value);
-                        } else if (input.type === 'number' && (input.id === 'cb_billing_interval' || input.id === 'sub_billing_interval')) {
-                            // Set billing interval to 1
-                            input.value = '1';
-                        } else if (input.id === 'upi_amount') {
-                            // Already handled above - keep default 17000
-                            // Don't clear this field
-                        } else {
-                            input.value = '';
-                        }
-                    }
-                });
-                console.log('Force cleared all visible input fields in ' + flow + ' flow');
-            }
-            
-            // Generate new transaction ID
-            generateTransactionId(flow);
-            
-            console.log('Form fields reset completed for ' + flow);
         }
         
         // Hide Debug and CURL
@@ -5563,6 +5799,60 @@
         // Validate Form
         function validateForm(flow) {
             const prefix = flow === 'crossborder' ? 'cb' : (flow === 'subscription' ? 'sub' : (flow === 'tpv' ? 'tpv' : (flow === 'upiotm' ? 'upi' : (flow === 'preauth' ? 'preauth' : (flow === 'checkoutplus' ? 'cp' : (flow === 'split' ? 'split' : (flow === 'bankoffer' ? 'bo' : 'ns')))))));
+            
+            // Validate Custom Transaction ID (if using custom credentials)
+            const useCustomKeys = document.getElementById(prefix + '_use_custom_keys');
+            if (useCustomKeys && useCustomKeys.checked) {
+                const txnidDisplay = document.getElementById(prefix + '_txnid_display');
+                const txnidHidden = document.getElementById(prefix + '_txnid');
+                
+                console.log('=== Custom Credentials Mode - Validating Transaction ID ===');
+                
+                // CRITICAL FIX: Sync display → hidden field BEFORE validation
+                // This ensures the hidden field always has the latest value
+                if (txnidDisplay && txnidHidden) {
+                    txnidHidden.value = txnidDisplay.value.trim();
+                    console.log('  Synced display → hidden:', txnidDisplay.value.trim());
+                }
+                
+                // Get the value from the display field (where user enters it)
+                const txnid = txnidDisplay ? txnidDisplay.value.trim() : '';
+                
+                console.log('  Display field value:', txnid);
+                console.log('  Display field empty?', !txnid);
+                
+                // Check if transaction ID is provided
+                if (!txnid || txnid === '') {
+                    alert('Transaction ID is required when using custom credentials.\nPlease enter a custom Transaction ID (max 25 characters).');
+                    if (txnidDisplay) txnidDisplay.focus();
+                    return false;
+                }
+                
+                // Validate format (alphanumeric, underscore, hyphen only)
+                const validPattern = /^[A-Za-z0-9_-]+$/;
+                if (!validPattern.test(txnid)) {
+                    alert('Invalid Transaction ID format.\n\nTransaction ID can only contain:\n- Letters (A-Z, a-z)\n- Numbers (0-9)\n- Underscores (_)\n- Hyphens (-)\n\nPlease remove any special characters.');
+                    if (txnidDisplay) txnidDisplay.focus();
+                    return false;
+                }
+                
+                // Validate length (max 25 characters)
+                if (txnid.length > 25) {
+                    alert('Transaction ID exceeds maximum length.\n\nMaximum: 25 characters\nCurrent: ' + txnid.length + ' characters\n\nPlease shorten your Transaction ID.');
+                    if (txnidDisplay) txnidDisplay.focus();
+                    return false;
+                }
+                
+                console.log('✓ Custom Transaction ID validated:', txnid, '(' + txnid.length + ' chars)');
+            } else {
+                // Using predefined credentials - auto-generated txnid should already be set
+                const txnid = document.getElementById(prefix + '_txnid').value;
+                if (!txnid) {
+                    alert('Transaction ID is missing. Please refresh the page.');
+                    return false;
+                }
+                console.log('✓ Auto-generated Transaction ID:', txnid);
+            }
             
             // Common required fields
             let requiredFields = ['amount', 'productinfo', 'firstname', 'email', 'phone'];
@@ -5581,9 +5871,17 @@
                     requiredFields.push('udf5_input');
                 } else {
                     // Cross border subscription
-                    requiredFields.push('payment_start_date', 'payment_end_date', 'billing_cycle', 'billing_interval');
+                    requiredFields.push('billing_amount', 'payment_start_date', 'payment_end_date', 'billing_cycle', 'billing_interval');
                     
                     console.log('=== Cross Border Subscription Validation ===');
+                    
+                    // Validate billing amount (must be positive number)
+                    const billingAmountField = document.getElementById('cb_billing_amount');
+                    if (!billingAmountField || !billingAmountField.value || parseFloat(billingAmountField.value) <= 0) {
+                        alert('Please enter a valid billing amount (must be greater than 0)');
+                        if (billingAmountField) billingAmountField.focus();
+                        return false;
+                    }
                     
                     // Validate payment start date (no past dates)
                     if (!validateSubscriptionStartDate('crossborder')) {
@@ -5628,7 +5926,15 @@
                 }
             } else if (flow === 'subscription') {
                 // Non-Seamless Subscription - only subscription fields are mandatory
-                requiredFields.push('payment_start_date', 'payment_end_date', 'billing_cycle', 'billing_interval');
+                requiredFields.push('billing_amount', 'payment_start_date', 'payment_end_date', 'billing_cycle', 'billing_interval');
+                
+                // Validate billing amount (must be positive number)
+                const billingAmountField = document.getElementById('sub_billing_amount');
+                if (!billingAmountField || !billingAmountField.value || parseFloat(billingAmountField.value) <= 0) {
+                    alert('Please enter a valid billing amount (must be greater than 0)');
+                    if (billingAmountField) billingAmountField.focus();
+                    return false;
+                }
                 
                 // Validate payment start date (no past dates)
                 if (!validateSubscriptionStartDate('subscription')) {
@@ -5737,13 +6043,14 @@
                 udf4 = document.getElementById('cb_sub_udf4_input').value || '';
                 udf5 = document.getElementById('cb_sub_udf5_input').value || '';
                 
+                const billingAmount = document.getElementById('cb_billing_amount').value;
                 const billingCycle = document.getElementById('cb_billing_cycle').value;
                 const billingInterval = document.getElementById('cb_billing_interval').value;
                 const paymentStartDate = document.getElementById('cb_payment_start_date').value;
                 const paymentEndDate = document.getElementById('cb_payment_end_date').value;
                 
                 const siDetails = {
-                    "billingAmount": amount,
+                    "billingAmount": billingAmount,
                     "billingCurrency": "INR",
                     "billingCycle": billingCycle,
                     "billingInterval": parseInt(billingInterval),
@@ -5776,13 +6083,14 @@
                 udf4 = document.getElementById('sub_udf4').value || '';
                 udf5 = document.getElementById('sub_udf5').value || '';
                 
+                const billingAmount = document.getElementById('sub_billing_amount').value;
                 const billingCycle = document.getElementById('sub_billing_cycle').value;
                 const billingInterval = document.getElementById('sub_billing_interval').value;
                 const paymentStartDate = document.getElementById('sub_payment_start_date').value;
                 const paymentEndDate = document.getElementById('sub_payment_end_date').value;
                 
                 const siDetails = {
-                    "billingAmount": amount,
+                    "billingAmount": billingAmount,
                     "billingCurrency": "INR",
                     "billingCycle": billingCycle,
                     "billingInterval": parseInt(billingInterval),
@@ -5963,9 +6271,8 @@
         
         // Submit Payment
         function submitPayment(flow) {
-            // Regenerate transaction IDs before payment
-            console.log('=== Regenerating Transaction IDs ===');
-            generateTransactionId(flow);
+            // Using stable transaction ID from page load
+            console.log('=== Submitting Payment with Stable Transaction ID ===');
             
             // For split payment, regenerate all child transaction IDs
             if (flow === 'split') {
@@ -6223,8 +6530,8 @@
         
         // Show Debug Info
         function showDebugInfo(flow) {
-            // Regenerate transaction IDs before showing debug info
-            generateTransactionId(flow);
+            // Using stable transaction ID - showing actual ID that will be used
+            console.log('ℹ️ Displaying debug info with stable transaction ID');
             
             // For split payment, regenerate all child transaction IDs
             if (flow === 'split') {
@@ -6391,8 +6698,8 @@
         
         // Show CURL Command
         function showCurlCommand(flow) {
-            // Regenerate transaction IDs before generating CURL
-            generateTransactionId(flow);
+            // Using stable transaction ID - CURL shows actual ID that will be used
+            console.log('📋 Generating CURL command with stable transaction ID');
             
             // For split payment, regenerate all child transaction IDs
             if (flow === 'split') {
@@ -6554,8 +6861,8 @@
                 return;
             }
             
-            // Generate fresh transaction ID for each payment attempt
-            generateTransactionId('checkoutplus');
+            // Using stable transaction ID from page load
+            console.log('✓ Checkout Plus using stable transaction ID');
             
             const prefix = 'cp';
             const credentials = getCredentials('checkoutplus');
@@ -6691,8 +6998,8 @@
         function showCodeGeneratorModal(flow) {
             console.log('[DEBUG] showCodeGeneratorModal called with flow:', flow);
             
-            // Regenerate transaction IDs before generating code (similar to CURL)
-            generateTransactionId(flow);
+            // Using stable transaction ID - code examples show actual ID that will be used
+            console.log('💻 Generating code snippets with stable transaction ID');
             
             // For split payment, regenerate all child transaction IDs
             if (flow === 'split') {
@@ -6836,6 +7143,7 @@
             // The difference is that Cross Border Subscription also includes buyer_type_business (handled below)
             if (flow === 'subscription' || (flow === 'crossborder' && currentPaymentType === 'subscription')) {
                 // Subscription-specific fields
+                flowSpecific.billingAmount = document.getElementById(prefix + '_billing_amount')?.value;
                 flowSpecific.billingCycle = document.getElementById(prefix + '_billing_cycle')?.value;
                 flowSpecific.billingInterval = document.getElementById(prefix + '_billing_interval')?.value;
                 flowSpecific.paymentStartDate = document.getElementById(prefix + '_payment_start_date')?.value;
@@ -7005,7 +7313,7 @@
             if (flowSpecific.hasSubscription) {
                 // Generate si_details JSON
                 const siDetailsData = {
-                    billingAmount: params.amount,
+                    billingAmount: flowSpecific.billingAmount,
                     billingCurrency: 'INR',
                     billingCycle: flowSpecific.billingCycle,
                     billingInterval: parseInt(flowSpecific.billingInterval),
@@ -7088,7 +7396,7 @@
                 metadata.requiresJSON = true;
                 metadata.jsonField = 'si_details';
                 metadata.jsonData = {
-                    billingAmount: params.amount,
+                    billingAmount: flowSpec.billingAmount || params.amount,
                     billingCurrency: 'INR',
                     billingCycle: flowSpec.billingCycle || 'MONTHLY',
                     billingInterval: parseInt(flowSpec.billingInterval) || 1,
@@ -7402,7 +7710,7 @@
                 // Build JSON method body based on flow type
                 let jsonMethodBody = '';
                 if (flowSpec.hasSubscription) {
-                    jsonMethodBody = '        json.append("\\"billingAmount\\":\\"").append(amount).append("\\",");\n' +
+                    jsonMethodBody = '        json.append("\\"billingAmount\\":\\"").append(billingAmount).append("\\",");\n' +
                                      '        json.append("\\"billingCurrency\\":\\"INR\\",");\n' +
                                      '        json.append("\\"billingCycle\\":\\"").append(billingCycle).append("\\",");\n' +
                                      '        json.append("\\"billingInterval\\":").append(billingInterval).append(",");\n' +
@@ -7418,7 +7726,7 @@
                                      '        json.append("\\"paymentEndDate\\":\\"").append(paymentEndDate).append("\\"");';
                 }
                 
-                const methodParams = flowSpec.hasSubscription ? ', String billingCycle, int billingInterval, String paymentStartDate, String paymentEndDate' : 
+                const methodParams = flowSpec.hasSubscription ? ', String billingAmount, String billingCycle, int billingInterval, String paymentStartDate, String paymentEndDate' : 
                                     flowSpec.hasBeneficiary ? ', String beneficiaryAccount, String ifscCode' : 
                                     flowSpec.hasUPIOTM ? ', String paymentStartDate, String paymentEndDate' : '';
                 
@@ -7429,9 +7737,10 @@
                     .join('');
                 
                 // Build proper JavaDoc based on flow type
-                let javaDocParams = '     * @param amount billing amount\n';
+                let javaDocParams = '     * @param amount transaction amount\n';
                 if (flowSpec.hasSubscription) {
-                    javaDocParams += '     * @param billingCycle billing cycle (MONTHLY, YEARLY, etc.)\n' +
+                    javaDocParams += '     * @param billingAmount billing amount to be charged per cycle\n' +
+                                    '     * @param billingCycle billing cycle (MONTHLY, YEARLY, etc.)\n' +
                                     '     * @param billingInterval billing interval\n' +
                                     '     * @param paymentStartDate payment start date in YYYY-MM-DD format\n' +
                                     '     * @param paymentEndDate payment end date in YYYY-MM-DD format (can be null)\n';
@@ -7463,7 +7772,7 @@
                 if (flowSpec.hasSubscription) {
                     jsonParamCode = `
         // Generate SI Details JSON
-        String siDetails = generate${methodName}(params.get("amount"), "${flowSpec.billingCycle}", ${flowSpec.billingInterval}, "${flowSpec.paymentStartDate}", "${flowSpec.paymentEndDate}");
+        String siDetails = generate${methodName}(params.get("amount"), "${flowSpec.billingAmount}", "${flowSpec.billingCycle}", ${flowSpec.billingInterval}, "${flowSpec.paymentStartDate}", "${flowSpec.paymentEndDate}");
         params.put("si_details", siDetails);
 `;
                 } else if (flowSpec.hasBeneficiary) {
@@ -9192,3 +9501,5 @@ nodeCartDetailsUsage +
     </div>
 </body>
 </html>
+
+
