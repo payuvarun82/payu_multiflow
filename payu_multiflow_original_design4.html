@@ -1495,28 +1495,33 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="cb_udf1_input">UDF1 - PAN Number <span class="optional">(Optional)</span></label>
-                            <input type="text" id="cb_udf1_input" name="udf1_input" placeholder="AAAPZ1234C">
+                            <input type="text" id="cb_udf1_input" name="udf1_input" placeholder="AAAPZ1234C" maxlength="255">
+                            <div id="cb_udf1_input_counter" class="char-counter">0/255</div>
                         </div>
                         <div class="form-group">
                             <label for="cb_udf2_input">UDF2 - Additional Info <span class="optional">(Optional)</span></label>
-                            <input type="text" id="cb_udf2_input" name="udf2_input" placeholder="Any additional information">
+                            <input type="text" id="cb_udf2_input" name="udf2_input" placeholder="Any additional information" maxlength="255">
+                            <div id="cb_udf2_input_counter" class="char-counter">0/255</div>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="cb_udf3_input">UDF3 - Buyer's DOB <span class="optional">(Recommended)</span></label>
-                            <input type="text" id="cb_udf3_input" name="udf3_input" placeholder="YYYY-MM-DD">
+                            <input type="text" id="cb_udf3_input" name="udf3_input" placeholder="YYYY-MM-DD" maxlength="255">
+                            <div id="cb_udf3_input_counter" class="char-counter">0/255</div>
                         </div>
                         <div class="form-group">
                             <label for="cb_udf4_input">UDF4 - Seller Name <span class="optional">(Optional)</span></label>
-                            <input type="text" id="cb_udf4_input" name="udf4_input" placeholder="Required for PA2PA PACB">
+                            <input type="text" id="cb_udf4_input" name="udf4_input" placeholder="Required for PA2PA PACB" maxlength="255">
+                            <div id="cb_udf4_input_counter" class="char-counter">0/255</div>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="cb_udf5_input">UDF5 - Invoice ID <span class="required">*</span></label>
-                        <input type="text" id="cb_udf5_input" name="udf5_input" placeholder="Required for PACB" required>
+                        <input type="text" id="cb_udf5_input" name="udf5_input" placeholder="Required for PACB" required maxlength="255">
+                        <div id="cb_udf5_input_counter" class="char-counter">0/255</div>
                     </div>
                 </div>
                 
@@ -9492,5 +9497,8 @@ nodeCartDetailsUsage +
     </div>
 </body>
 </html>
+
+
+
 
 
