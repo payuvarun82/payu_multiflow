@@ -1263,7 +1263,7 @@
                     <div class="custom-key-toggle">
                         <label>
                             <input type="checkbox" id="cb_use_custom_keys" onchange="toggleCustomKeys('crossborder')">
-                            Use Custom Merchant Key & Salt (for testing with your own credentials)
+                            Use Your Merchant UAT Key & Salt (for testing with test/sandbox credentials provided by PayU payments)
                         </label>
                         <div class="custom-key-fields" id="cb-custom-key-fields">
                             <div class="form-group">
@@ -1388,6 +1388,14 @@
                         <label for="cb_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end - Non Editable)</span></label>
                         <input type="text" id="cb_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
                         <span class="char-counter" id="cb_txnid_display_counter">0/25</span>
+                    </div>
+                    
+                    <!-- Fill with Sample Data Button (for Predefined Credentials) -->
+                    <div class="form-group" id="cb-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
+                        <button type="button" class="button template-button" id="cb_generate_template_btn" onclick="generateTemplate('crossborder')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                            🔄 Fill with Sample Data
+                        </button>
+                        <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
                     </div>
                     
                     <div class="form-row">
@@ -1634,7 +1642,7 @@
                     <div class="custom-key-toggle">
                         <label>
                             <input type="checkbox" id="ns_use_custom_keys" onchange="toggleCustomKeys('nonseamless')">
-                            Use Custom Merchant Key & Salt (for testing with your own credentials)
+                            Use Your Merchant UAT Key & Salt (for testing with test/sandbox credentials provided by PayU payments)
                         </label>
                         <div class="custom-key-fields" id="ns-custom-key-fields">
                             <div class="form-group">
@@ -1683,6 +1691,14 @@
                         <label for="ns_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end - Non Editable)</span></label>
                         <input type="text" id="ns_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
                         <span class="char-counter" id="ns_txnid_display_counter">0/25</span>
+                    </div>
+                    
+                    <!-- Fill with Sample Data Button (for Predefined Credentials) -->
+                    <div class="form-group" id="ns-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
+                        <button type="button" class="button template-button" id="ns_generate_template_btn" onclick="generateTemplate('nonseamless')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                            🔄 Fill with Sample Data
+                        </button>
+                        <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
                     </div>
                     
                     <div class="form-row">
@@ -1868,7 +1884,7 @@
                     <div class="custom-key-toggle">
                         <label>
                             <input type="checkbox" id="sub_use_custom_keys" onchange="toggleCustomKeys('subscription')">
-                            Use Custom Merchant Key & Salt (for testing with your own credentials)
+                            Use Your Merchant UAT Key & Salt (for testing with test/sandbox credentials provided by PayU payments)
                         </label>
                         <div class="custom-key-fields" id="sub-custom-key-fields">
                             <div class="form-group">
@@ -1974,6 +1990,14 @@
                         <label for="sub_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end - Non Editable)</span></label>
                         <input type="text" id="sub_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
                         <span class="char-counter" id="sub_txnid_display_counter">0/25</span>
+                    </div>
+                    
+                    <!-- Fill with Sample Data Button (for Predefined Credentials) -->
+                    <div class="form-group" id="sub-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
+                        <button type="button" class="button template-button" id="sub_generate_template_btn" onclick="generateTemplate('subscription')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                            🔄 Fill with Sample Data
+                        </button>
+                        <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
                     </div>
                     
                     <div class="form-row">
@@ -2242,7 +2266,7 @@
                 <div class="custom-key-toggle">
                     <label>
                         <input type="checkbox" id="tpv_use_custom_keys" onchange="toggleCustomKeys('tpv')">
-                        Use Custom Merchant Key & Salt (for testing with your own credentials)
+                        Use Your Merchant UAT Key & Salt (for testing with test/sandbox credentials provided by PayU payments)
                     </label>
                     <div class="custom-key-fields" id="tpv-custom-key-fields">
                         <div class="form-group">
@@ -2282,6 +2306,14 @@
                         <label for="tpv_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end - Non Editable)</span></label>
                         <input type="text" id="tpv_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
                         <span class="char-counter" id="tpv_txnid_display_counter">0/25</span>
+                    </div>
+                    
+                    <!-- Fill with Sample Data Button (for Predefined Credentials) -->
+                    <div class="form-group" id="tpv-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
+                        <button type="button" class="button template-button" id="tpv_generate_template_btn" onclick="generateTemplate('tpv')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                            🔄 Fill with Sample Data
+                        </button>
+                        <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
                     </div>
                     
                     <div class="form-row">
@@ -2506,7 +2538,7 @@
                 <div class="custom-key-toggle">
                     <label>
                         <input type="checkbox" id="upi_use_custom_keys" onchange="toggleCustomKeys('upiotm')">
-                        Use Custom Merchant Key & Salt (for testing with your own credentials)
+                        Use Your Merchant UAT Key & Salt (for testing with test/sandbox credentials provided by PayU payments)
                     </label>
                     <div class="custom-key-fields" id="upi-custom-key-fields">
                         <div class="form-group">
@@ -2574,6 +2606,14 @@
                     <label for="upi_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end - Non Editable)</span></label>
                     <input type="text" id="upi_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
                     <span class="char-counter" id="upi_txnid_display_counter">0/25</span>
+                </div>
+                
+                <!-- Fill with Sample Data Button (for Predefined Credentials) -->
+                <div class="form-group" id="upi-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
+                    <button type="button" class="button template-button" id="upi_generate_template_btn" onclick="generateTemplate('upiotm')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                        🔄 Fill with Sample Data
+                    </button>
+                    <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
                 </div>
                 
                 <div class="form-row">
@@ -2755,7 +2795,7 @@
                 <div class="custom-key-toggle">
                     <label>
                         <input type="checkbox" id="preauth_use_custom_keys" onchange="toggleCustomKeys('preauth')">
-                        Use Custom Merchant Key & Salt (for testing with your own credentials)
+                        Use Your Merchant UAT Key & Salt (for testing with test/sandbox credentials provided by PayU payments)
                     </label>
                     <div class="custom-key-fields" id="preauth-custom-key-fields">
                         <div class="form-group">
@@ -2802,6 +2842,14 @@
                     <label for="preauth_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end - Non Editable)</span></label>
                     <input type="text" id="preauth_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
                     <span class="char-counter" id="preauth_txnid_display_counter">0/25</span>
+                </div>
+                
+                <!-- Fill with Sample Data Button (for Predefined Credentials) -->
+                <div class="form-group" id="preauth-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
+                    <button type="button" class="button template-button" id="preauth_generate_template_btn" onclick="generateTemplate('preauth')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                        🔄 Fill with Sample Data
+                    </button>
+                    <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
                 </div>
                 
                 <div class="form-row">
@@ -3010,7 +3058,7 @@
                 <div class="custom-key-toggle">
                     <label>
                         <input type="checkbox" id="cp_use_custom_keys" onchange="toggleCustomKeys('checkoutplus')">
-                        Use Custom Merchant Key & Salt (for testing with your own credentials)
+                        Use Your Merchant UAT Key & Salt (for testing with test/sandbox credentials provided by PayU payments)
                     </label>
                     <div class="custom-key-fields" id="cp-custom-key-fields">
                         <div class="form-group">
@@ -3059,6 +3107,14 @@
                     <label for="cp_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end - Non Editable)</span></label>
                     <input type="text" id="cp_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
                     <span class="char-counter" id="cp_txnid_display_counter">0/25</span>
+                </div>
+                
+                <!-- Fill with Sample Data Button (for Predefined Credentials) -->
+                <div class="form-group" id="cp-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
+                    <button type="button" class="button template-button" id="cp_generate_template_btn" onclick="generateTemplate('checkoutplus')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                        🔄 Fill with Sample Data
+                    </button>
+                    <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
                 </div>
                 
                 <div class="form-row">
@@ -3245,7 +3301,7 @@
                 <div class="custom-key-toggle">
                     <label class="checkbox-container">
                         <input type="checkbox" id="split_use_custom_keys" name="use_custom_keys" onchange="toggleCustomKeys('split')">
-                        <span class="checkbox-label">Use Custom Merchant Key & Salt (for testing with your own credentials)</span>
+                        <span class="checkbox-label">Use Your Merchant UAT Key & Salt (for testing with test/sandbox credentials provided by PayU payments)</span>
                     </label>
                     
                     <div class="custom-key-fields" id="split-custom-key-fields">
@@ -3276,6 +3332,14 @@
                     <label for="split_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end - Non Editable)</span></label>
                     <input type="text" id="split_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
                     <span class="char-counter" id="split_txnid_display_counter">0/25</span>
+                </div>
+                
+                <!-- Fill with Sample Data Button (for Predefined Credentials) -->
+                <div class="form-group" id="split-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
+                    <button type="button" class="button template-button" id="split_generate_template_btn" onclick="generateTemplate('split')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                        🔄 Fill with Sample Data
+                    </button>
+                    <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
                 </div>
                 
                 <div class="form-row">
@@ -3540,7 +3604,7 @@
                 <div class="custom-key-toggle">
                     <label>
                         <input type="checkbox" id="bo_use_custom_keys" onchange="toggleCustomKeys('bankoffer')">
-                        Use Custom Merchant Key & Salt (for testing with your own credentials)
+                        Use Your Merchant UAT Key & Salt (for testing with test/sandbox credentials provided by PayU payments)
                     </label>
                     <div class="custom-key-fields" id="bo-custom-key-fields">
                         <div class="form-group">
@@ -3570,6 +3634,14 @@
                     <label for="bo_txnid_display">Transaction ID <span style="color: #48bb78;">(Auto-Generated from Back-end - Non Editable)</span></label>
                     <input type="text" id="bo_txnid_display" readonly maxlength="25" style="background-color: #f0f0f0; cursor: not-allowed; font-family: monospace;">
                     <span class="char-counter" id="bo_txnid_display_counter">0/25</span>
+                </div>
+                
+                <!-- Fill with Sample Data Button (for Predefined Credentials) -->
+                <div class="form-group" id="bo-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
+                    <button type="button" class="button template-button" id="bo_generate_template_btn" onclick="generateTemplate('bankoffer')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                        🔄 Fill with Sample Data
+                    </button>
+                    <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
                 </div>
                 
                 <div class="form-row">
@@ -3974,6 +4046,23 @@
             generateTransactionId('checkoutplus');
             generateTransactionId('split');
             generateTransactionId('bankoffer');
+            
+            // Initialize Fill with Sample Data button visibility based on custom keys state
+            const flows = ['crossborder', 'nonseamless', 'subscription', 'tpv', 'upiotm', 'preauth', 'checkoutplus', 'split', 'bankoffer'];
+            flows.forEach(function(flow) {
+                const prefix = flow === 'crossborder' ? 'cb' : (flow === 'subscription' ? 'sub' : (flow === 'tpv' ? 'tpv' : (flow === 'upiotm' ? 'upi' : (flow === 'preauth' ? 'preauth' : (flow === 'checkoutplus' ? 'cp' : (flow === 'split' ? 'split' : (flow === 'bankoffer' ? 'bo' : 'ns')))))));
+                const customKeysCheckbox = document.getElementById(prefix + '_use_custom_keys');
+                const templateWrapper = document.getElementById(prefix + '-generate-template-wrapper');
+                
+                if (templateWrapper) {
+                    // Show button only if custom keys are NOT checked (predefined credentials)
+                    if (customKeysCheckbox && !customKeysCheckbox.checked) {
+                        templateWrapper.style.display = 'block';
+                    } else {
+                        templateWrapper.style.display = 'none';
+                    }
+                }
+            });
             
             // Set default values for subscription flows (both Cross Border and Non-Seamless)
             const today = new Date().toISOString().split('T')[0];
@@ -4404,10 +4493,24 @@
             const placeholderText = splitType === 'absolute' ? '500.00' : '50';
             const amountLabel = splitType === 'absolute' ? 'Amount (INR)' : 'Percentage';
             
-            // ALWAYS generate child transaction ID (even for custom keys scenario)
-            const timestamp = Date.now();
-            const randomSuffix = Math.floor(Math.random() * 10000);
-            const childTxnId = 'child_' + timestamp + '_' + randomSuffix;
+            // Generate child transaction ID ONLY when NOT using custom keys
+            // When using custom keys, merchant should provide their own transaction IDs
+            let childTxnId = '';
+            let isTxnIdReadonly = true;
+            let txnIdPlaceholder = 'Auto-generated';
+            let txnIdSmallText = 'Auto-generated unique ID';
+            
+            if (!useCustomKeys) {
+                // Only generate transaction ID for predefined credentials
+                const timestamp = Date.now();
+                const randomSuffix = Math.floor(Math.random() * 10000);
+                childTxnId = 'child_' + timestamp + '_' + randomSuffix;
+            } else {
+                // For custom keys, make it editable and don't prefill
+                isTxnIdReadonly = false;
+                txnIdPlaceholder = 'Enter child transaction ID';
+                txnIdSmallText = 'Enter your own transaction ID';
+            }
             
             const rowId = splitRowCounter;
             
@@ -4415,7 +4518,11 @@
             console.log('  Custom Keys Checkbox Checked: ' + useCustomKeys);
             console.log('  Existing Rows Count: ' + existingRows);
             console.log('  Default Merchant Key: "' + defaultMerchantKey + '" (Position-based for predefined creds)');
-            console.log('  Child Transaction ID: ' + childTxnId);
+            if (!useCustomKeys) {
+                console.log('  Child Transaction ID: ' + childTxnId + ' (Auto-generated)');
+            } else {
+                console.log('  Child Transaction ID: (Not prefilled - merchant to provide)');
+            }
             
             // Create row container
             const row = document.createElement('div');
@@ -4439,16 +4546,20 @@
             
             const formGroupTxnId = document.createElement('div');
             formGroupTxnId.className = 'form-group';
+            const readonlyAttr = isTxnIdReadonly ? 'readonly' : '';
+            const readonlyStyle = isTxnIdReadonly ? 'background-color: #f0f0f0; cursor: not-allowed;' : '';
             formGroupTxnId.innerHTML = `
                 <label>Child Transaction ID <span class="required">*</span></label>
-                <input type="text" class="split-txn-id" placeholder="Auto-generated" required readonly>
-                <small style="color: var(--text-tertiary);">Auto-generated unique ID</small>
+                <input type="text" class="split-txn-id" placeholder="${txnIdPlaceholder}" required ${readonlyAttr} style="${readonlyStyle}">
+                <small style="color: var(--text-tertiary);">${txnIdSmallText}</small>
             `;
-            // Set value programmatically for reliability
+            // Set value programmatically only if not using custom keys
             const txnIdInput = formGroupTxnId.querySelector('.split-txn-id');
-            if (txnIdInput) {
+            if (txnIdInput && !useCustomKeys && childTxnId) {
                 txnIdInput.value = childTxnId;
                 console.log('  Set Transaction ID Input Value: "' + txnIdInput.value + '"');
+            } else if (txnIdInput && useCustomKeys) {
+                console.log('  Transaction ID field left empty for custom credentials (merchant to provide)');
             }
             
             const formGroupAmount = document.createElement('div');
@@ -4494,13 +4605,23 @@
                 
                 console.log('✓ Split row #' + rowId + ' added and verified');
                 console.log('  Expected Merchant Key: "' + defaultMerchantKey + '" | Actual: "' + actualMerchantKey + '"');
-                console.log('  Expected Transaction ID: "' + childTxnId + '" | Actual: "' + actualTxnId + '"');
                 
-                if (actualMerchantKey !== defaultMerchantKey) {
-                    console.error('✗ Merchant Key mismatch!');
-                }
-                if (actualTxnId !== childTxnId) {
-                    console.error('✗ Transaction ID mismatch!');
+                if (!useCustomKeys) {
+                    console.log('  Expected Transaction ID: "' + childTxnId + '" | Actual: "' + actualTxnId + '"');
+                    if (actualMerchantKey !== defaultMerchantKey) {
+                        console.error('✗ Merchant Key mismatch!');
+                    }
+                    if (actualTxnId !== childTxnId) {
+                        console.error('✗ Transaction ID mismatch!');
+                    }
+                } else {
+                    console.log('  Transaction ID: (Empty - merchant to provide) | Actual: "' + actualTxnId + '"');
+                    if (actualMerchantKey !== defaultMerchantKey) {
+                        console.error('✗ Merchant Key mismatch!');
+                    }
+                    if (actualTxnId && actualTxnId !== 'NOT FOUND') {
+                        console.warn('⚠ Transaction ID should be empty for custom credentials');
+                    }
                 }
             }, 10);
         }
@@ -4516,14 +4637,24 @@
             }
         }
         
-        // Regenerate all child transaction IDs
+        // Regenerate all child transaction IDs (only for predefined credentials)
         function regenerateSplitChildTransactionIds() {
+            // Check if using custom keys - if yes, don't regenerate
+            const useCustomKeysCheckbox = document.getElementById('split_use_custom_keys');
+            const useCustomKeys = useCustomKeysCheckbox ? useCustomKeysCheckbox.checked : false;
+            
+            if (useCustomKeys) {
+                console.log('⚠ Skipping transaction ID regeneration - using custom credentials (merchant provides their own IDs)');
+                return;
+            }
+            
             const splitRows = document.querySelectorAll('.split-row');
             let regeneratedCount = 0;
             
             splitRows.forEach((row, index) => {
                 const txnIdInput = row.querySelector('.split-txn-id');
-                if (txnIdInput) {
+                if (txnIdInput && txnIdInput.readOnly) {
+                    // Only regenerate readonly (auto-generated) transaction IDs
                     const timestamp = Date.now();
                     const randomSuffix = Math.floor(Math.random() * 10000);
                     const newChildTxnId = 'child_' + timestamp + '_' + randomSuffix;
@@ -5524,6 +5655,88 @@
             return true;
         }
         
+        // Fill with Sample Data Function - Fill form fields with predefined test data
+        function generateTemplate(flow) {
+            // Get flow prefix
+            const prefix = flow === 'crossborder' ? 'cb' : (flow === 'subscription' ? 'sub' : (flow === 'tpv' ? 'tpv' : (flow === 'upiotm' ? 'upi' : (flow === 'preauth' ? 'preauth' : (flow === 'checkoutplus' ? 'cp' : (flow === 'split' ? 'split' : (flow === 'bankoffer' ? 'bo' : 'ns')))))));
+            
+            // Check if custom keys are enabled - if yes, show alert and return
+            const customKeysCheckbox = document.getElementById(prefix + '_use_custom_keys');
+            if (customKeysCheckbox && customKeysCheckbox.checked) {
+                alert('Fill with Sample Data is only available when using predefined credentials.\nPlease uncheck "Use Your Merchant UAT Key & Salt" to use this feature.');
+                return;
+            }
+            
+            // Predefined template values
+            const templateData = {
+                amount: '15000',
+                productinfo: 'DESKTOP',
+                firstname: 'Sunit',
+                lastname: 'Kumar',
+                email: 'sunit.kumar@mail.com',
+                phone: '9876543210',
+                address1: 'FIRST FLOOR',
+                address2: 'NEW ASHOK NAGAR',
+                city: 'Delhi',
+                state: 'Delhi',
+                country: 'INDIA',
+                zipcode: '201303',
+                udf1: 'Testing UDF 1',
+                udf2: 'Testing UDF2',
+                udf5: 'Sample_Invoice_11'
+            };
+            
+            // Helper function to set field value and trigger events
+            function setFieldValue(fieldId, value) {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.value = value;
+                    // Trigger input event for character counters and validation
+                    field.dispatchEvent(new Event('input', { bubbles: true }));
+                    field.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+            }
+            
+            // Fill common fields
+            setFieldValue(prefix + '_amount', templateData.amount);
+            setFieldValue(prefix + '_productinfo', templateData.productinfo);
+            setFieldValue(prefix + '_firstname', templateData.firstname);
+            setFieldValue(prefix + '_lastname', templateData.lastname);
+            setFieldValue(prefix + '_email', templateData.email);
+            setFieldValue(prefix + '_phone', templateData.phone);
+            
+            // Fill address fields (if they exist)
+            setFieldValue(prefix + '_address1', templateData.address1);
+            setFieldValue(prefix + '_address2', templateData.address2);
+            setFieldValue(prefix + '_city', templateData.city);
+            setFieldValue(prefix + '_state', templateData.state);
+            setFieldValue(prefix + '_country', templateData.country);
+            setFieldValue(prefix + '_zipcode', templateData.zipcode);
+            
+            // Fill UDF fields based on flow-specific naming
+            if (flow === 'crossborder') {
+                // Cross Border uses _input suffix for UDFs
+                setFieldValue(prefix + '_udf1_input', templateData.udf1);
+                setFieldValue(prefix + '_udf2_input', templateData.udf2);
+                setFieldValue(prefix + '_udf5_input', templateData.udf5);
+            } else {
+                // Other flows use direct naming
+                setFieldValue(prefix + '_udf1', templateData.udf1);
+                setFieldValue(prefix + '_udf2', templateData.udf2);
+                setFieldValue(prefix + '_udf5', templateData.udf5);
+            }
+            
+            // Special handling for subscription flow in cross-border
+            if (flow === 'crossborder') {
+                // Check if subscription UDF fields exist
+                setFieldValue('cb_sub_udf1_input', templateData.udf1);
+                setFieldValue('cb_sub_udf2_input', templateData.udf2);
+                setFieldValue('cb_sub_udf5_input', templateData.udf5);
+            }
+            
+            console.log('✓ Template data filled for ' + flow + ' flow');
+        }
+        
         // Custom Keys Functions
         function toggleCustomKeys(flow) {
             const prefix = flow === 'crossborder' ? 'cb' : (flow === 'subscription' ? 'sub' : (flow === 'tpv' ? 'tpv' : (flow === 'upiotm' ? 'upi' : (flow === 'preauth' ? 'preauth' : (flow === 'checkoutplus' ? 'cp' : (flow === 'split' ? 'split' : (flow === 'bankoffer' ? 'bo' : 'ns')))))));
@@ -5535,12 +5748,20 @@
             const txnidHidden = document.getElementById(prefix + '_txnid');
             const txnidLabel = document.querySelector('label[for="' + prefix + '_txnid_display"]');
             
+            // Get Fill with Sample Data button wrapper
+            const templateWrapper = document.getElementById(prefix + '-generate-template-wrapper');
+            
             if (isCustom) {
                 // Enable custom credentials mode
                 customFields.classList.add('active');
                 document.getElementById(prefix + '_custom_key').value = '';
                 document.getElementById(prefix + '_custom_salt').value = '';
                 document.getElementById(prefix + '_custom_salt').type = 'password';
+                
+                // Hide Fill with Sample Data button (only available for predefined credentials)
+                if (templateWrapper) {
+                    templateWrapper.style.display = 'none';
+                }
                 
                 // Make Transaction ID editable
                 if (txnidDisplay) {
@@ -5566,6 +5787,11 @@
                 document.getElementById(prefix + '_custom_key').value = '';
                 document.getElementById(prefix + '_custom_salt').value = '';
                 
+                // Show Fill with Sample Data button (available for predefined credentials)
+                if (templateWrapper) {
+                    templateWrapper.style.display = 'block';
+                }
+                
                 // Make Transaction ID readonly again
                 if (txnidDisplay) {
                     txnidDisplay.setAttribute('readonly', true);
@@ -5588,13 +5814,15 @@
             const hashField = document.getElementById(prefix + '_hash');
             if (hashField) hashField.value = '';
             
-            // For split payment, update existing child merchant keys when toggle changes
+            // For split payment, update existing child merchant keys and transaction IDs when toggle changes
             if (flow === 'split') {
                 const splitRows = document.querySelectorAll('.split-row');
                 const rowCount = splitRows.length;
                 
                 splitRows.forEach((row, index) => {
                     const merchantKeyInput = row.querySelector('.split-merchant-key');
+                    const txnIdInput = row.querySelector('.split-txn-id');
+                    
                     if (merchantKeyInput) {
                         if (isCustom) {
                             // Clear child merchant key when using custom keys
@@ -5611,9 +5839,40 @@
                             }
                         }
                     }
+                    
+                    if (txnIdInput) {
+                        if (isCustom) {
+                            // Clear transaction ID and make it editable when using custom keys
+                            txnIdInput.value = '';
+                            txnIdInput.removeAttribute('readonly');
+                            txnIdInput.style.backgroundColor = '';
+                            txnIdInput.style.cursor = '';
+                            txnIdInput.placeholder = 'Enter child transaction ID';
+                            // Update small text
+                            const smallText = txnIdInput.closest('.form-group').querySelector('small');
+                            if (smallText) {
+                                smallText.textContent = 'Enter your own transaction ID';
+                            }
+                        } else {
+                            // Generate and set transaction ID when not using custom keys
+                            const timestamp = Date.now();
+                            const randomSuffix = Math.floor(Math.random() * 10000);
+                            const newChildTxnId = 'child_' + timestamp + '_' + randomSuffix;
+                            txnIdInput.value = newChildTxnId;
+                            txnIdInput.setAttribute('readonly', 'readonly');
+                            txnIdInput.style.backgroundColor = '#f0f0f0';
+                            txnIdInput.style.cursor = 'not-allowed';
+                            txnIdInput.placeholder = 'Auto-generated';
+                            // Update small text
+                            const smallText = txnIdInput.closest('.form-group').querySelector('small');
+                            if (smallText) {
+                                smallText.textContent = 'Auto-generated unique ID';
+                            }
+                        }
+                    }
                 });
                 
-                console.log('✓ Updated ' + rowCount + ' child merchant key(s) - Custom keys: ' + isCustom);
+                console.log('✓ Updated ' + rowCount + ' child merchant key(s) and transaction ID(s) - Custom keys: ' + isCustom);
                 
                 // If no child rows exist and not using custom keys, add one default row
                 if (rowCount === 0 && !isCustom) {
@@ -9497,5 +9756,8 @@ nodeCartDetailsUsage +
     </div>
 </body>
 </html>
+
+
+
 
 
