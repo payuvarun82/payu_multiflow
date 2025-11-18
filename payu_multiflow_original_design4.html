@@ -3663,6 +3663,11 @@
                         <input type="text" id="bo_offer_key" name="offer_key" placeholder="e.g., TestInstantDiscount@BVfeXGNr2FKy">
                         <small style="color: var(--text-tertiary);">For non-SKU based offers. Leave blank if using SKU details or to let PayU automatically apply the best available offer.</small>
                     </div>
+                    <div class="form-group">
+                        <label for="bo_user_token">User Token <span class="optional">(Optional)</span></label>
+                        <input type="text" id="bo_user_token" name="user_token" placeholder="e.g., 1234567890">
+                        <small style="color: var(--text-tertiary);">User token for bank offer transactions (both SKU and non-SKU)</small>
+                    </div>
                 </div>
                 
                 <!-- API Version (shown only when SKU is enabled) -->
@@ -5683,7 +5688,8 @@
                 zipcode: '201303',
                 udf1: 'Testing UDF 1',
                 udf2: 'Testing UDF2',
-                udf5: 'Sample_Invoice_11'
+                udf5: 'Sample_Invoice_11',
+                user_token: '1234567890'  // Default user_token for bank offers
             };
             
             // Helper function to set field value and trigger events
@@ -5732,6 +5738,11 @@
                 setFieldValue('cb_sub_udf1_input', templateData.udf1);
                 setFieldValue('cb_sub_udf2_input', templateData.udf2);
                 setFieldValue('cb_sub_udf5_input', templateData.udf5);
+            }
+            
+            // Special handling for bankoffer flow - add user_token
+            if (flow === 'bankoffer') {
+                setFieldValue('bo_user_token', templateData.user_token);
             }
             
             console.log('✓ Template data filled for ' + flow + ' flow');
@@ -6472,11 +6483,11 @@
                 const cartDetails = buildBankOfferCartDetails();
                 const phone = document.getElementById('bo_phone').value || '';
                 const offerKey = document.getElementById('bo_offer_key').value.trim() || '';
+                const userToken = document.getElementById('bo_user_token').value.trim() || '';  // Get from UI field
                 
                 if (cartDetails) {
                     // Extended hash formula when cart_details is present
                     // sha512(key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||user_token|offer_key|offer_auto_apply|cart_details|extra_charges|phone|SALT)
-                    const userToken = '';  // Empty by default
                     const offerAutoApply = '';  // Empty by default
                     const extraCharges = '';  // Empty by default
                     
@@ -6666,6 +6677,13 @@
                 if (offerKey) {
                     fields.push({ name: 'offer_key', value: offerKey });
                     console.log('Non-SKU offer_key added:', offerKey);
+                }
+                
+                // Add user_token for bank offers (both SKU and non-SKU)
+                const userToken = document.getElementById('bo_user_token').value.trim();
+                if (userToken) {
+                    fields.push({ name: 'user_token', value: userToken });
+                    console.log('user_token added:', userToken);
                 }
             }
             
@@ -6891,6 +6909,12 @@
                 if (offerKey) {
                     debugHtml += '<tr><td>offer_key' + addFieldLabel('offer_key') + '</td><td>' + offerKey + '</td></tr>';
                 }
+                
+                // Add user_token for bank offers (both SKU and non-SKU)
+                const userToken = document.getElementById('bo_user_token').value.trim();
+                if (userToken) {
+                    debugHtml += '<tr><td>user_token' + addFieldLabel('user_token') + '</td><td>' + userToken + '</td></tr>';
+                }
             }
             
             debugHtml += '<tr><td>surl' + addFieldLabel('surl') + '</td><td>' + document.getElementById(prefix + '_surl').value + '</td></tr>';
@@ -7044,6 +7068,12 @@
                 const offerKey = document.getElementById('bo_offer_key').value.trim();
                 if (offerKey) {
                     curlCommand += '  -d "offer_key=' + offerKey + '" \\\n';
+                }
+                
+                // Add user_token for bank offers (both SKU and non-SKU)
+                const userToken = document.getElementById('bo_user_token').value.trim();
+                if (userToken) {
+                    curlCommand += '  -d "user_token=' + userToken + '" \\\n';
                 }
             }
             
@@ -7472,11 +7502,19 @@
                 // Bank Offers-specific fields
                 const offerKey = document.getElementById('bo_offer_key')?.value;
                 const skuEnabled = document.getElementById('bo_enable_sku')?.checked;
+                const userToken = document.getElementById('bo_user_token')?.value.trim();
                 
                 flowSpecific.hasBankOffer = true;
                 
                 if (offerKey) {
                     flowSpecific.offerKey = offerKey;
+                }
+                
+                // Store user_token for code generation (both SKU and non-SKU)
+                if (userToken) {
+                    params.user_token = userToken;
+                    flowSpecific.userToken = userToken;
+                    console.log('✓ Bank Offer user_token collected for code generation:', userToken);
                 }
                 
                 // Check if cart_details (SKU) is enabled and available
@@ -9756,8 +9794,5 @@ nodeCartDetailsUsage +
     </div>
 </body>
 </html>
-
-
-
 
 
