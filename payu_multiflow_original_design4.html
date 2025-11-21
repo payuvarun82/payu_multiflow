@@ -8,24 +8,50 @@
     <script id="checkoutPlusScript" src="https://jssdk-uat.payu.in/bolt/bolt.min.js"></script>
     <style>
         :root {
-            --bg-primary: #f5f7fb;
+            /* PayU Theme Colors */
+            --color-primary: #10846D;
+            --color-primary-inverse: #fff;
+            --color-primary-alt: #024538;
+            --color-primary-darken-10: #0a5647;
+            --color-primary-darken-20: #052922;
+            --color-primary-alpha-25: rgba(16, 132, 109, 0.25);
+            --color-link-primary: #10846D;
+            --color-link-primary-darken-5: #0d6d5a;
+            --color-link-primary-darken-10: #0a5647;
+            --color-link-primary-darken-20: #052922;
+            --color-link-primary-alpha-50: rgba(16, 132, 109, 0.5);
+            --color-link-primary-alpha-25: rgba(16, 132, 109, 0.25);
+            --color-link-background: rgba(16, 132, 109, 0.09);
+            --color-link-text: #fff;
+            
+            /* Legacy variables mapped to PayU theme */
+            --bg-primary: #F7FAF9;
             --bg-secondary: #ffffff;
             --bg-tertiary: #f8fafc;
             --text-primary: #1a202c;
             --text-secondary: #4a5568;
             --text-tertiary: #718096;
-            --accent-primary: #667eea;
-            --accent-secondary: #764ba2;
+            --accent-primary: #10846D;
+            --accent-secondary: #024538;
             --border-color: #e2e8f0;
             --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.05);
             --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
             --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.15);
-            --gradient-primary: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            --gradient-primary: linear-gradient(135deg, #10846D 0%, #024538 100%);
             --success-color: #48bb78;
             --warning-color: #ed8936;
             --error-color: #f56565;
             --info-bg: #e6fffa;
             --debug-bg: #f7fafc;
+            
+            /* PayU Project Colors */
+            --project-color-primary: #10846D;
+            --project-color-inverse: #fff;
+            --recipe-button-color: #10846D;
+            --recipe-button-color-hover: #052922;
+            --recipe-button-color-active: #000000;
+            --recipe-button-color-focus: rgba(16, 132, 109, 0.25);
+            --recipe-button-color-disabled: #72eed5;
         }
         
         * {
@@ -36,10 +62,12 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-primary);
+            background: #F7FAF9;
             padding: 20px;
             color: var(--text-primary);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         .container {
@@ -154,7 +182,7 @@
         .flow-selector select:focus {
             outline: none;
             border-color: var(--accent-primary);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(16, 132, 109, 0.1);
         }
         
         .flow-selector button {
@@ -193,18 +221,20 @@
         .back-button {
             margin: 2rem 3rem 0;
             padding: 0.75rem 1.5rem;
-            background: var(--text-tertiary);
+            background: var(--color-primary-darken-20);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 1rem;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
         
         .back-button:hover {
-            background: var(--text-secondary);
+            background: var(--color-primary-darken-10);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 132, 109, 0.3);
         }
         
         .main-content {
@@ -283,7 +313,7 @@
             outline: none;
             border-color: var(--accent-primary);
             background: var(--bg-secondary);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(16, 132, 109, 0.1);
         }
         
         .error {
@@ -459,7 +489,7 @@
         
         .payment-type-btn.active {
             border-color: var(--accent-primary);
-            background: rgba(102, 126, 234, 0.1);
+            background: rgba(16, 132, 109, 0.1);
         }
         
         .payment-type-btn h3 {
@@ -546,7 +576,7 @@
         
         .button:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
+            box-shadow: 0 8px 20px rgba(16, 132, 109, 0.4);
         }
         
         .button:active {
@@ -554,15 +584,35 @@
         }
         
         .debug-button {
-            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            background: linear-gradient(135deg, #10846D 0%, #024538 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .debug-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 132, 109, 0.4);
         }
         
         .pay-button-wrapper {
             display: flex;
             gap: 1rem;
             justify-content: center;
+            align-items: center;
             margin-top: 2rem;
             grid-column: 1 / -1;
+            flex-wrap: wrap;
+        }
+        
+        .pay-button-wrapper .button {
+            flex: 0 0 auto;
+            min-width: 150px;
         }
         
         .debug-section {
@@ -689,18 +739,21 @@
         }
         
         .copy-button {
-            background: var(--success-color);
+            background: linear-gradient(135deg, #10846D 0%, #024538 100%);
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
             cursor: pointer;
             margin-bottom: 1rem;
-            font-size: 0.875rem;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
         
         .copy-button:hover {
-            background: #38a169;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 132, 109, 0.3);
         }
         
         /* Tablet Responsiveness */
@@ -979,7 +1032,7 @@
         
         /* Code Generator Modal Styles */
         .code-gen-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #10846D 0%, #024538 100%);
             color: white;
             margin-right: 10px;
             transition: all 0.3s ease;
@@ -987,7 +1040,7 @@
         
         .code-gen-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 20px rgba(16, 132, 109, 0.4);
         }
         
         .code-modal {
@@ -1093,7 +1146,7 @@
             background: var(--accent-primary);
             color: white;
             border-color: var(--accent-primary);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 12px rgba(16, 132, 109, 0.3);
         }
         
         .code-actions {
@@ -1194,6 +1247,172 @@
         .form-group input[maxlength]:focus + .char-counter,
         .form-group textarea[maxlength]:focus + .char-counter {
             color: var(--accent-primary);
+        }
+        
+        /* PayU Theme Styles */
+        @media not all and (min-width: 1180px) {
+            .max-d\:\!tw-max-w-\[775px\] {
+                max-width: 775px !important;
+            }
+        }
+        
+        .\!tw-pt-\[64px\] {
+            padding-top: 64px !important;
+        }
+        
+        .\!tw-pb-\[72px\] {
+            padding-bottom: 72px !important;
+        }
+        
+        .\!tw-pr-16 {
+            padding-right: 1rem !important;
+        }
+        
+        .\!tw-pl-16 {
+            padding-left: 1rem !important;
+        }
+        
+        .\!tw-max-w-\[1200px\] {
+            max-width: 1200px !important;
+        }
+        
+        .\!tw-m-auto {
+            margin: auto !important;
+        }
+        
+        .\!tw-bg-\[\#F7FAF9\] {
+            --tw-bg-opacity: 1 !important;
+            background-color: rgb(247 250 249 / 1) !important;
+        }
+        
+        /* PayU Body Background */
+        body {
+            background-color: var(--bg-primary) !important;
+        }
+        
+        /* PayU Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(217, 217, 217, 1);
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+        
+        /* PayU Box Sizing */
+        *, :after, :before {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x: ;
+            --tw-pan-y: ;
+            --tw-pinch-zoom: ;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position: ;
+            --tw-gradient-via-position: ;
+            --tw-gradient-to-position: ;
+            --tw-ordinal: ;
+            --tw-slashed-zero: ;
+            --tw-numeric-figure: ;
+            --tw-numeric-spacing: ;
+            --tw-numeric-fraction: ;
+            --tw-ring-inset: ;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgba(16, 132, 109, 0.5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur: ;
+            --tw-brightness: ;
+            --tw-contrast: ;
+            --tw-grayscale: ;
+            --tw-hue-rotate: ;
+            --tw-invert: ;
+            --tw-saturate: ;
+            --tw-sepia: ;
+            --tw-drop-shadow: ;
+            --tw-backdrop-blur: ;
+            --tw-backdrop-brightness: ;
+            --tw-backdrop-contrast: ;
+            --tw-backdrop-grayscale: ;
+            --tw-backdrop-hue-rotate: ;
+            --tw-backdrop-invert: ;
+            --tw-backdrop-opacity: ;
+            --tw-backdrop-saturate: ;
+            --tw-backdrop-sepia: ;
+        }
+        
+        :after, :before {
+            --tw-content: "";
+        }
+        
+        *, :after, :before {
+            border: 0 solid;
+            box-sizing: border-box;
+        }
+        
+        ::backdrop {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x: ;
+            --tw-pan-y: ;
+            --tw-pinch-zoom: ;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position: ;
+            --tw-gradient-via-position: ;
+            --tw-gradient-to-position: ;
+            --tw-ordinal: ;
+            --tw-slashed-zero: ;
+            --tw-numeric-figure: ;
+            --tw-numeric-spacing: ;
+            --tw-numeric-fraction: ;
+            --tw-ring-inset: ;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgba(16, 132, 109, 0.5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur: ;
+            --tw-brightness: ;
+            --tw-contrast: ;
+            --tw-grayscale: ;
+            --tw-hue-rotate: ;
+            --tw-invert: ;
+            --tw-saturate: ;
+            --tw-sepia: ;
+            --tw-drop-shadow: ;
+            --tw-backdrop-blur: ;
+            --tw-backdrop-brightness: ;
+            --tw-backdrop-contrast: ;
+            --tw-backdrop-grayscale: ;
+            --tw-backdrop-hue-rotate: ;
+            --tw-backdrop-invert: ;
+            --tw-backdrop-opacity: ;
+            --tw-backdrop-saturate: ;
+            --tw-backdrop-sepia: ;
         }
     </style>
 </head>
@@ -1392,7 +1611,7 @@
                     
                     <!-- Fill with Sample Data Button (for Predefined Credentials) -->
                     <div class="form-group" id="cb-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
-                        <button type="button" class="button template-button" id="cb_generate_template_btn" onclick="generateTemplate('crossborder')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                        <button type="button" class="button template-button" id="cb_generate_template_btn" onclick="generateTemplate('crossborder')" style="font-size: 0.9rem; padding: 0.75rem 1.5rem;">
                             🔄 Fill with Sample Data
                         </button>
                         <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
@@ -1695,7 +1914,7 @@
                     
                     <!-- Fill with Sample Data Button (for Predefined Credentials) -->
                     <div class="form-group" id="ns-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
-                        <button type="button" class="button template-button" id="ns_generate_template_btn" onclick="generateTemplate('nonseamless')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                        <button type="button" class="button template-button" id="ns_generate_template_btn" onclick="generateTemplate('nonseamless')" style="font-size: 0.9rem; padding: 0.75rem 1.5rem;">
                             🔄 Fill with Sample Data
                         </button>
                         <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
@@ -1994,7 +2213,7 @@
                     
                     <!-- Fill with Sample Data Button (for Predefined Credentials) -->
                     <div class="form-group" id="sub-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
-                        <button type="button" class="button template-button" id="sub_generate_template_btn" onclick="generateTemplate('subscription')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                        <button type="button" class="button template-button" id="sub_generate_template_btn" onclick="generateTemplate('subscription')" style="font-size: 0.9rem; padding: 0.75rem 1.5rem;">
                             🔄 Fill with Sample Data
                         </button>
                         <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
@@ -2310,7 +2529,7 @@
                     
                     <!-- Fill with Sample Data Button (for Predefined Credentials) -->
                     <div class="form-group" id="tpv-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
-                        <button type="button" class="button template-button" id="tpv_generate_template_btn" onclick="generateTemplate('tpv')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                        <button type="button" class="button template-button" id="tpv_generate_template_btn" onclick="generateTemplate('tpv')" style="font-size: 0.9rem; padding: 0.75rem 1.5rem;">
                             🔄 Fill with Sample Data
                         </button>
                         <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
@@ -2610,7 +2829,7 @@
                 
                 <!-- Fill with Sample Data Button (for Predefined Credentials) -->
                 <div class="form-group" id="upi-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
-                    <button type="button" class="button template-button" id="upi_generate_template_btn" onclick="generateTemplate('upiotm')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                    <button type="button" class="button template-button" id="upi_generate_template_btn" onclick="generateTemplate('upiotm')" style="font-size: 0.9rem; padding: 0.75rem 1.5rem;">
                         🔄 Fill with Sample Data
                     </button>
                     <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
@@ -2846,7 +3065,7 @@
                 
                 <!-- Fill with Sample Data Button (for Predefined Credentials) -->
                 <div class="form-group" id="preauth-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
-                    <button type="button" class="button template-button" id="preauth_generate_template_btn" onclick="generateTemplate('preauth')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                    <button type="button" class="button template-button" id="preauth_generate_template_btn" onclick="generateTemplate('preauth')" style="font-size: 0.9rem; padding: 0.75rem 1.5rem;">
                         🔄 Fill with Sample Data
                     </button>
                     <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
@@ -3111,7 +3330,7 @@
                 
                 <!-- Fill with Sample Data Button (for Predefined Credentials) -->
                 <div class="form-group" id="cp-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
-                    <button type="button" class="button template-button" id="cp_generate_template_btn" onclick="generateTemplate('checkoutplus')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                    <button type="button" class="button template-button" id="cp_generate_template_btn" onclick="generateTemplate('checkoutplus')" style="font-size: 0.9rem; padding: 0.75rem 1.5rem;">
                         🔄 Fill with Sample Data
                     </button>
                     <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
@@ -3336,7 +3555,7 @@
                 
                 <!-- Fill with Sample Data Button (for Predefined Credentials) -->
                 <div class="form-group" id="split-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
-                    <button type="button" class="button template-button" id="split_generate_template_btn" onclick="generateTemplate('split')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                    <button type="button" class="button template-button" id="split_generate_template_btn" onclick="generateTemplate('split')" style="font-size: 0.9rem; padding: 0.75rem 1.5rem;">
                         🔄 Fill with Sample Data
                     </button>
                     <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
@@ -3487,7 +3706,7 @@
                     <div id="splitRowsContainer">
                         <!-- Split rows will be added dynamically -->
                     </div>
-                    <button type="button" class="button" onclick="addSplitRow()" style="background: var(--success-color); margin-top: 10px;">
+                    <button type="button" class="button" onclick="addSplitRow()" style="margin-top: 10px;">
                         + Add Another Split Merchant
                     </button>
                 </div>
@@ -3638,7 +3857,7 @@
                 
                 <!-- Fill with Sample Data Button (for Predefined Credentials) -->
                 <div class="form-group" id="bo-generate-template-wrapper" style="margin-top: 0.5rem; margin-bottom: 1rem;">
-                    <button type="button" class="button template-button" id="bo_generate_template_btn" onclick="generateTemplate('bankoffer')" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                    <button type="button" class="button template-button" id="bo_generate_template_btn" onclick="generateTemplate('bankoffer')" style="font-size: 0.9rem; padding: 0.75rem 1.5rem;">
                         🔄 Fill with Sample Data
                     </button>
                     <small style="color: var(--text-tertiary); display: block; margin-top: 0.5rem;">Fill all form fields with predefined test data</small>
@@ -3731,7 +3950,7 @@
                         <!-- Dynamic SKU rows will be added here -->
                     </div>
                     
-                    <button type="button" class="button" onclick="addBankOfferSkuRow()" style="margin-top: 1rem; background: var(--success-color);">
+                    <button type="button" class="button" onclick="addBankOfferSkuRow()" style="margin-top: 1rem;">
                         <span style="font-size: 1.2rem; margin-right: 0.25rem;">+</span> Add SKU Item
                     </button>
                     <small id="bo-sku-limit-msg" style="display: block; margin-top: 0.5rem; color: var(--text-tertiary);"></small>
@@ -3750,7 +3969,7 @@
                         <h4 style="color: var(--accent-primary); margin-bottom: 0.5rem;">Cart Details JSON Preview</h4>
                         <div style="position: relative;">
                             <pre id="bo-json-preview" style="background: var(--debug-bg); padding: 1rem; border-radius: 8px; overflow-x: auto; max-height: 400px; font-size: 0.85rem; border: 1px solid var(--border-color); min-height: 100px;"></pre>
-                            <button type="button" onclick="copyBankOfferJson()" style="position: absolute; top: 10px; right: 10px; padding: 0.5rem 1rem; background: var(--accent-primary); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">Copy JSON</button>
+                            <button type="button" class="button" onclick="copyBankOfferJson()" style="position: absolute; top: 10px; right: 10px; padding: 0.5rem 1rem; font-size: 0.85rem;">Copy JSON</button>
                         </div>
                     </div>
                 </div>
@@ -4935,8 +5154,8 @@
             row.onmouseenter = function() {
                 this.style.borderTopColor = 'var(--accent-primary)';
                 this.style.borderBottomColor = 'var(--accent-primary)';
-                this.style.boxShadow = '0 4px 16px rgba(102, 126, 234, 0.12)';
-                this.style.background = 'linear-gradient(to bottom, #f8faff, #f0f4ff)';
+                this.style.boxShadow = '0 4px 16px rgba(16, 132, 109, 0.12)';
+                this.style.background = 'linear-gradient(to bottom, #f0f9f7, #e6f5f2)';
             };
             row.onmouseleave = function() {
                 this.style.borderTopColor = '#e2e8f0';
@@ -9769,10 +9988,10 @@ nodeCartDetailsUsage +
             </div>
             
             <div class="code-actions">
-                <button class="button" onclick="copyGeneratedCode()" style="background: var(--success-color); margin-right: 10px;">
+                <button class="button" onclick="copyGeneratedCode()" style="margin-right: 10px;">
                     Copy Code
                 </button>
-                <button class="button" onclick="downloadGeneratedCode()" style="background: var(--accent-primary);">
+                <button class="button" onclick="downloadGeneratedCode()">
                     Download
                 </button>
             </div>
@@ -9794,5 +10013,8 @@ nodeCartDetailsUsage +
     </div>
 </body>
 </html>
+
+
+
 
 
