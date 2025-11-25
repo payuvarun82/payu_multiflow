@@ -1574,7 +1574,7 @@
                             <div class="form-group">
                                 <label for="cb_payment_start_date">Payment Start Date <span class="required">*</span></label>
                                 <input type="date" id="cb_payment_start_date" name="payment_start_date" onchange="validateSubscriptionStartDate('crossborder')">
-                                <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Select current or future date only</small>
+                                <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Select today's date or future dates only. Note: For eNACH payments, select tomorrow's date.</small>
                             </div>
                             <div class="form-group">
                                 <label for="cb_payment_end_date">Payment End Date <span class="required">*</span></label>
@@ -1647,6 +1647,7 @@
                         <div class="form-group">
                             <label for="cb_amount">Amount <span class="required">*</span></label>
                             <input type="number" id="cb_amount" name="amount" step="0.01" placeholder="100.00" required>
+                            <small id="cb_enach_amount_note" style="color: var(--text-tertiary); display: none; margin-top: 0.25rem;">Note: For eNACH payments, use transaction amount as 1.</small>
                         </div>
                         <div class="form-group">
                             <label for="cb_productinfo">Product Info <span class="required">*</span></label>
@@ -2180,7 +2181,7 @@
                             <div class="form-group">
                                 <label for="sub_payment_start_date">Payment Start Date <span class="required">*</span></label>
                                 <input type="date" id="sub_payment_start_date" name="payment_start_date" onchange="validateSubscriptionStartDate('subscription')">
-                                <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Select current or future date only</small>
+                                <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Select today's date or future dates only. Note: For eNACH payments, select tomorrow's date.</small>
                             </div>
                             <div class="form-group">
                                 <label for="sub_payment_end_date">Payment End Date <span class="required">*</span></label>
@@ -2249,6 +2250,7 @@
                         <div class="form-group">
                             <label for="sub_amount">Amount <span class="required">*</span></label>
                             <input type="number" id="sub_amount" name="amount" step="0.01" placeholder="100.00" required>
+                            <small style="color: var(--text-tertiary); display: block; margin-top: 0.25rem;">Note: For eNACH payments, use transaction amount as 1.</small>
                         </div>
                         <div class="form-group">
                             <label for="sub_productinfo">Product Info <span class="required">*</span></label>
@@ -4449,6 +4451,14 @@
                         document.getElementById('cb-subscription-section').classList.add('active');
                         document.getElementById('cb-onetime-udf-section').classList.remove('active');
                         document.getElementById('cb-subscription-udf-section').classList.add('active');
+                        
+                        // Show eNACH amount note for subscription
+                        const enachNote = document.getElementById('cb_enach_amount_note');
+                        if (enachNote) enachNote.style.display = 'block';
+                    } else {
+                        // Hide eNACH amount note for one-time payment
+                        const enachNote = document.getElementById('cb_enach_amount_note');
+                        if (enachNote) enachNote.style.display = 'none';
                     }
                 }
                 
@@ -5593,6 +5603,10 @@
                     document.getElementById('cb-onetime-udf-section').classList.remove('hidden');
                     document.getElementById('cb-subscription-udf-section').classList.add('hidden');
                     
+                    // Hide eNACH amount note for one-time payment
+                    const enachNote = document.getElementById('cb_enach_amount_note');
+                    if (enachNote) enachNote.style.display = 'none';
+                    
                     // Reset one-time UDF fields
                     document.getElementById('cb_udf1_input').value = '';
                     document.getElementById('cb_udf2_input').value = '';
@@ -6226,6 +6240,10 @@
                 onetimeUdfSection.classList.add('hidden');
                 subscriptionUdfSection.classList.remove('hidden');
                 
+                // Show eNACH amount note for subscription
+                const enachNote = document.getElementById('cb_enach_amount_note');
+                if (enachNote) enachNote.style.display = 'block';
+                
                 // SI and API Version are already set in HTML with readonly values - no need to set again
                 // They have value="1" and value="7" hardcoded
                 
@@ -6257,6 +6275,10 @@
                 subscriptionConfig.classList.remove('active');
                 onetimeUdfSection.classList.remove('hidden');
                 subscriptionUdfSection.classList.add('hidden');
+                
+                // Hide eNACH amount note for one-time payment
+                const enachNote = document.getElementById('cb_enach_amount_note');
+                if (enachNote) enachNote.style.display = 'none';
                 
                 // Keep SI and API version values - they're readonly and prefilled in HTML
                 // Only clear the si_details as it's user-configurable
@@ -10042,8 +10064,3 @@ nodeCartDetailsUsage +
     </div>
 </body>
 </html>
-
-
-
-
-
