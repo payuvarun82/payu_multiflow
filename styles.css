@@ -1131,7 +1131,6 @@
         .code-gen-button {
             background: linear-gradient(135deg, #10846D 0%, #024538 100%);
             color: white;
-            margin-right: 10px;
             transition: all 0.3s ease;
         }
         
