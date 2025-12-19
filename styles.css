@@ -776,6 +776,7 @@
         /* CURL Section */
         .curl-section {
             margin-top: 2rem;
+            margin-bottom: 3rem;
             padding: 2rem;
             background: var(--text-primary);
             color: white;
