@@ -899,7 +899,17 @@
             .flow-tile {
                 padding: 1.25rem 1rem;
             }
-            
+            /* Optional: Testing */
+
+                .flow-tile {
+                    cursor: pointer;
+                }
+                .flow-tile:hover svg path {
+                    fill: #10846D;
+                    transition: fill 0.3s ease;
+                }
+
+                /* Optional: Testing End*/ 
             .flow-header {
                 padding: 1rem 1.5rem;
             }
